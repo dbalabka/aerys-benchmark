@@ -1,0 +1,5 @@
+{
+    "require": {
+        "amphp/aerys": "^0.4.7"
+    }
+}
