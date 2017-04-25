@@ -11,6 +11,10 @@ it is only x4 slower than NodeJS. Latency distribution in comparision with NodeJ
 that spoils overall performance picture.
 There no big difference between reactors. For some reason native PHP reactor 
 has almost same performance as reactors based on ev, libevent or php-uv extensions.
+Another issue that there are constantly sockets errors:
+```
+Socket errors: connect 0, read 3669, write 0, timeout 0
+``` 
 
 ## Testing environment
 
