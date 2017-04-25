@@ -32,6 +32,15 @@ Hardware:
       Memory: 8 GB
 ```
 
+```text
+php --version
+PHP 7.0.18 (cli) (built: Apr 25 2017 02:53:38) ( NTS )
+Copyright (c) 1997-2017 The PHP Group
+Zend Engine v3.0.0, Copyright (c) 1998-2017 Zend Technologies
+    with Zend OPcache v7.0.13, Copyright (c) 1999-2016, by Zend Technologies
+    with Xdebug v2.4.1, Copyright (c) 2002-2016, by Derick Rethans
+```
+
 ## Testing tool
 ```bash
 wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
