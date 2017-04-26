@@ -1,20 +1,21 @@
 About
 =====
 
-Inspired by: https://github.com/squeaky-pl/japronto 
+The main goal of this benchmark report is to investigate state of PHP native 
+possibilities to provide non-blocking HTTP server implementation. 
+This report is focused on already existing solution [Aerys](https://github.com/amphp/aerys).
+
+
+This benchmark report is inspired by: https://github.com/squeaky-pl/japronto
+
 
 ## TL;DR
 
-Overall Aerys server performance is good. It faster then ReactPHP and 
-it is only x4 slower than NodeJS. Latency distribution in comparision with NodeJS has almost same values for
-50%, 75%, 90% percentiles, but sometimes requests are very slow(perc. 99% = 226.93ms)
-that spoils overall performance picture.
+Overall Aerys server performance is good. It is close to NodeJS performance, 
+but still slower by ~23%. 
+Aerys latency distribution has much higher standard deviation in comparision with NodeJS.
 There no big difference between reactors. For some reason native PHP reactor 
 has almost same performance as reactors based on ev, libevent or php-uv extensions.
-Another issue that there are constantly sockets errors:
-```
-Socket errors: connect 0, read 3669, write 0, timeout 0
-``` 
 
 ## Testing environment
 
@@ -37,15 +38,20 @@ Hardware:
 ```
 
 ```text
-php --version
+php -n --version
 PHP 7.0.18 (cli) (built: Apr 25 2017 02:53:38) ( NTS )
 Copyright (c) 1997-2017 The PHP Group
 Zend Engine v3.0.0, Copyright (c) 1998-2017 Zend Technologies
-    with Zend OPcache v7.0.13, Copyright (c) 1999-2016, by Zend Technologies
-    with Xdebug v2.4.1, Copyright (c) 2002-2016, by Derick Rethans
 ```
 
 ## Testing tool
+
+[wrk](https://github.com/wg/wrk) version 4.0.2
+
+Testing settings:
+ * 1 thread
+ * 100 connections
+ * during 30 seconds
 ```bash
 wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
 ```
@@ -53,41 +59,24 @@ wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
 PHP
 ===
 
+We use default PHP settings:   
+```text
+  -n               No configuration (ini) files will be used
+```
+with disabled native assertion framework:
+```text
+-dzend.assertions=-1
+```
+
 
 ## ReactPHP
+
+ReactPHP is used only 
 
 Start server:
 ```bash
 cd ./react-php
-php -dzend.assertions=-1 -dxdebug.default_enable=0 ./server.php
-```
-
-Result:
-```text
-Running 30s test @ http://127.0.0.1:51790/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    20.26ms    4.62ms  71.84ms   92.09%
-    Req/Sec     1.60k   329.64     2.07k    91.00%
-  Latency Distribution
-     50%   19.54ms
-     75%   20.56ms
-     90%   23.10ms
-     99%   40.57ms
-  16021 requests in 30.07s, 2.70MB read
-  Socket errors: connect 0, read 810, write 55, timeout 0
-Requests/sec:    532.72
-Transfer/sec:     92.08KB
-```
-
-## Aerys
-
-### NativeReactor
-
-Start server:
-```bash
-cd ./aerys
-php -dzend.assertions=-1 -dxdebug.default_enable=0 ./vendor/bin/aerys -c ./server.php
+php -n -dzend.assertions=-1 ./server.php
 ```
 
 Result:
@@ -95,17 +84,72 @@ Result:
 Running 30s test @ http://127.0.0.1:8080/
   1 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    16.08ms   62.31ms 902.34ms   98.10%
-    Req/Sec     3.62k   425.59     4.03k    89.33%
+    Latency     8.63ms    6.76ms 112.12ms   98.32%
+    Req/Sec     3.52k     1.46k    4.52k    84.78%
   Latency Distribution
-     50%    7.85ms
-     75%    8.25ms
-     90%    9.47ms
-     99%  383.05ms
-  108038 requests in 30.01s, 18.23MB read
-  Socket errors: connect 0, read 3527, write 0, timeout 0
-Requests/sec:   3600.30
-Transfer/sec:    621.96KB
+     50%    7.86ms
+     75%    8.08ms
+     90%    9.51ms
+     99%   21.15ms
+  16123 requests in 30.04s, 2.72MB read
+  Socket errors: connect 0, read 310, write 116, timeout 0
+Requests/sec:    536.79
+Transfer/sec:     92.78KB
+```
+
+## Aerys
+
+To avoid connections rejections Aerys must be configured with higher amount of simultaneous
+connections per one IP address:
+```php
+const AERYS_OPTIONS = [
+    'connectionsPerIP' => 100,
+];
+```
+
+### NativeReactor
+
+Start server with one worker only:
+```bash
+cd ./aerys
+php -n -dzend.assertions=-1 ./vendor/bin/aerys -w 1 -c ./server.php
+```
+
+Results:
+```text
+Running 30s test @ http://127.0.0.1:8080/
+  1 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    10.90ms   18.47ms 425.74ms   98.90%
+    Req/Sec    10.71k     1.02k   12.09k    87.67%
+  Latency Distribution
+     50%    8.94ms
+     75%    9.19ms
+     90%   10.69ms
+     99%   39.13ms
+  319800 requests in 30.00s, 53.95MB read
+Requests/sec:  10658.39
+Transfer/sec:      1.80MB
+```
+
+Result with installed xdebug, but disabled in command line. 
+As you can see it significantly slows down the server. During benchmark testing
+zend_extension configuration line must be commented out.
+```text
+Running 30s test @ http://127.0.0.1:8080/
+  1 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    12.67ms   41.88ms 610.45ms   98.48%
+    Req/Sec     3.76k   245.95     4.04k    89.00%
+  Latency Distribution
+     50%    7.78ms
+     75%    8.05ms
+     90%    8.71ms
+     99%  230.37ms
+  112109 requests in 30.01s, 18.91MB read
+  Socket errors: connect 0, read 3661, write 0, timeout 0
+Requests/sec:   3736.22
+Transfer/sec:    645.46KB
 ```
 
 ### LibeventReactor
@@ -113,25 +157,24 @@ Transfer/sec:    621.96KB
 Start server:
 ```bash
 cd ./aerys
-php -dzend.assertions=-1 -dxdebug.default_enable=0 -dextension="/usr/local/opt/php70-event/event.so" ./vendor/bin/aerys -c ./server.php
+php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-event/event.so" ./vendor/bin/aerys -w 1 -c ./server.php
 ```
 
-Result:
+Results:
 ```text
 Running 30s test @ http://127.0.0.1:8080/
   1 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    12.66ms   40.60ms 569.08ms   98.44%
-    Req/Sec     3.69k   425.23     3.99k    90.00%
+    Latency    11.17ms   18.96ms 485.22ms   98.84%
+    Req/Sec    10.50k     1.01k   11.42k    87.33%
   Latency Distribution
-     50%    7.73ms
-     75%    8.08ms
-     90%    9.02ms
-     99%  219.16ms
-  110333 requests in 30.03s, 18.61MB read
-  Socket errors: connect 0, read 3599, write 0, timeout 0
-Requests/sec:   3674.70
-Transfer/sec:    634.82KB
+     50%    9.07ms
+     75%    9.52ms
+     90%   10.93ms
+     99%   48.21ms
+  313558 requests in 30.01s, 52.89MB read
+Requests/sec:  10449.34
+Transfer/sec:      1.76MB
 ```
 
 ### EvReactor
@@ -139,25 +182,24 @@ Transfer/sec:    634.82KB
 Start server:
 ```bash
 cd ./aerys
-php -dzend.assertions=-1 -dxdebug.default_enable=0 -dextension="/usr/local/opt/php70-ev/ev.so" ./vendor/bin/aerys -c ./server.php
+php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-ev/ev.so" ./vendor/bin/aerys -w 1 -c ./server.php
 ```
 
-Result:
+Results:
 ```text
 Running 30s test @ http://127.0.0.1:8080/
   1 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    12.54ms   40.92ms 591.49ms   98.50%
-    Req/Sec     3.75k   232.77     3.96k    90.67%
+    Latency    10.85ms   18.15ms 445.32ms   98.88%
+    Req/Sec    10.77k   704.05    12.18k    90.33%
   Latency Distribution
-     50%    7.80ms
-     75%    8.02ms
-     90%    8.72ms
-     99%  221.44ms
-  111999 requests in 30.00s, 18.90MB read
-  Socket errors: connect 0, read 3658, write 0, timeout 0
-Requests/sec:   3732.72
-Transfer/sec:    644.85KB
+     50%    9.04ms
+     75%    9.29ms
+     90%    9.92ms
+     99%   41.32ms
+  321362 requests in 30.00s, 54.21MB read
+Requests/sec:  10710.55
+Transfer/sec:      1.81MB
 ```
 
 ### UvReactor
@@ -165,36 +207,36 @@ Transfer/sec:    644.85KB
 Start server:
 ```bash
 cd ./aerys
-php -dzend.assertions=-1 -dxdebug.default_enable=0 -dextension="/usr/local/opt/php70-uv/uv.so" ./vendor/bin/aerys -c ./server.php
+php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-uv/uv.so" ./vendor/bin/aerys -w 1 -c ./server.php
 ```
 
-Result:
+Results:
 ```text
 Running 30s test @ http://127.0.0.1:8080/
   1 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    12.58ms   41.11ms 585.23ms   98.49%
-    Req/Sec     3.75k   239.80     3.98k    88.33%
+    Latency    11.12ms   18.83ms 456.16ms   98.85%
+    Req/Sec    10.55k     0.95k   11.85k    87.33%
   Latency Distribution
-     50%    7.77ms
-     75%    8.09ms
-     90%    8.80ms
-     99%  226.93ms
-  112018 requests in 30.01s, 18.90MB read
-  Socket errors: connect 0, read 3669, write 0, timeout 0
-Requests/sec:   3733.04
-Transfer/sec:    644.91KB
+     50%    9.09ms
+     75%    9.50ms
+     90%   10.67ms
+     99%   46.84ms
+  314828 requests in 30.00s, 53.11MB read
+Requests/sec:  10493.07
+Transfer/sec:      1.77MB
 ```
 
 NodeJS
 ======
 
+Start server:
 ```bash
 cd ./nodejs
 node ./server.js
 wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
 ```
-
+Results:
 ```text
 Running 30s test @ http://127.0.0.1:8080/
   1 threads and 100 connections

@@ -6,6 +6,10 @@
  * file that was distributed with this source code.
  */
 
+const AERYS_OPTIONS = [
+    'connectionsPerIP' => 100,
+];
+
 (new \Aerys\Host)
     ->name("localhost")
     ->expose("0.0.0.0", 8080)
