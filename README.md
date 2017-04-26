@@ -1,6 +1,8 @@
 About
 =====
 
+**NOTE! This report still not finalized and result numbers is topic for discussion** 
+
 The main goal of this benchmark report is to investigate state of PHP native 
 possibilities to provide non-blocking HTTP server implementation. 
 This report is focused on already existing solution [Aerys](https://github.com/amphp/aerys).
