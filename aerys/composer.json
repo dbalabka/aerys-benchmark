@@ -1,5 +1,11 @@
 {
     "require": {
-        "amphp/aerys": "^0.4.7"
-    }
+        "amphp/aerys": "dev-benchmark-fixes"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:torinaki/aerys.git"
+        }
+    ]
 }

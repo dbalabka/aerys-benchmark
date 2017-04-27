@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c14fd57c27301b3de17ab1ab5cc4736b",
-    "content-hash": "7cd853579ff2f8f7438a0400e80b774c",
+    "hash": "3ba74a4a5fecf35972642ea1de0bd18b",
+    "content-hash": "a01c5d4e1050d7ea9b5d31205693a5f0",
     "packages": [
         {
             "name": "amphp/aerys",
-            "version": "v0.4.7",
+            "version": "dev-benchmark-fixes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/amphp/aerys.git",
-                "reference": "d19301498f343393a4d9b14973e3389a7c3381c0"
+                "url": "https://github.com/torinaki/aerys.git",
+                "reference": "166a14a14bc42311cdba4f7489f373591b731e0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/aerys/zipball/d19301498f343393a4d9b14973e3389a7c3381c0",
-                "reference": "d19301498f343393a4d9b14973e3389a7c3381c0",
+                "url": "https://api.github.com/repos/torinaki/aerys/zipball/166a14a14bc42311cdba4f7489f373591b731e0f",
+                "reference": "166a14a14bc42311cdba4f7489f373591b731e0f",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,11 @@
                     "lib/constants.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Aerys\\Test\\": "test/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -85,7 +89,10 @@
                 "server",
                 "websocket"
             ],
-            "time": "2017-02-27 13:32:41"
+            "support": {
+                "source": "https://github.com/torinaki/aerys/tree/benchmark-fixes"
+            },
+            "time": "2017-04-27 00:17:33"
         },
         {
             "name": "amphp/amp",
@@ -684,7 +691,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "amphp/aerys": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

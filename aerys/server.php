@@ -7,6 +7,7 @@
  */
 
 const AERYS_OPTIONS = [
+    // help avoid connection errors during benchmark
     'connectionsPerIP' => 100,
 ];
 
