@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PHP_COMMAND='php -n'
+PHP_COMMAND="php -n ${PHP_OPTIONS}"
 NODEJS_COMMAND='node'
 
 AERYS_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
@@ -20,7 +20,7 @@ function start_benchmark {
     printf "\n${SUCCESS}${1}${END}"
 
     printf "\n\n${INFO}Start server...${END}\n${2}"
-    eval "${2} &>/dev/null &"
+    eval "${2} 1>/dev/null &"
     SERVER_PID=$!
 
     sleep 1
@@ -39,13 +39,15 @@ function start_benchmark {
 printf "PHP version:\n"
 eval "${PHP_COMMAND} -c ./php/default.ini -v"
 
-start_benchmark "Benchmarking ReactPHP without keep alive" "${PHP_COMMAND} -c ./php/default.ini ${REACTPHP_COMMAND}"
+start_benchmark "Benchmarking ReactPHP (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${REACTPHP_COMMAND}"
+start_benchmark "Benchmarking ReactPHP (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${REACTPHP_COMMAND}"
 
-start_benchmark "Benchmarking Aerys without keep alive" "${PHP_COMMAND} -c ./php/default.ini ${AERYS_WO_KEEP_ALIVE_COMMAND}"
-start_benchmark "Benchmarking Aerys with keep alive" "${PHP_COMMAND} -c ./php/default.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys with keep alive and ev" "${PHP_COMMAND} -c ./php/default-with-ev.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys with keep alive and event" "${PHP_COMMAND} -c ./php/default-with-event.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys with keep alive and uv" "${PHP_COMMAND} -c ./php/default-with-uv.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${AERYS_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND}"
 
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"
