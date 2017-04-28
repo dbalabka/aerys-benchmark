@@ -20,7 +20,7 @@ There no big difference between reactors. For some reason native PHP reactor
 has almost same performance as reactors based on ev, libevent or php-uv extensions.
 It is hard to compare ReactPHP with other servers implementations, 
 because it doesn't support keeping connections alive.
-But comparing Aerys non-keep-alive version ReactPHP we can see that ReactPHP performing better. 
+But comparing Aerys and ReactPHP non-keep-alive versions we can see that ReactPHP performing better.
 
 ## Testing environment
 
