@@ -4,6 +4,7 @@ PHP_COMMAND='php -n'
 NODEJS_COMMAND='node'
 
 AERYS_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
+AERYS_WO_KEEP_ALIVE_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-keep-alive.php --worker-args=\"-n\""
 REACTPHP_COMMAND="./react-php/server.php"
 NODEJS_SERVER_COMMAND="./nodejs/server.js"
 
@@ -38,12 +39,13 @@ function start_benchmark {
 printf "PHP version:\n"
 eval "${PHP_COMMAND} -c ./php/default.ini -v"
 
-start_benchmark "Benchmarking ReactPHP" "${PHP_COMMAND} -c ./php/default.ini ${REACTPHP_COMMAND}"
+start_benchmark "Benchmarking ReactPHP without keep alive" "${PHP_COMMAND} -c ./php/default.ini ${REACTPHP_COMMAND}"
 
-start_benchmark "Benchmarking Aerys" "${PHP_COMMAND} -c ./php/default.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys with ev" "${PHP_COMMAND} -c ./php/default-with-ev.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys with event" "${PHP_COMMAND} -c ./php/default-with-event.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys with uv" "${PHP_COMMAND} -c ./php/default-with-uv.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys without keep alive" "${PHP_COMMAND} -c ./php/default.ini ${AERYS_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys with keep alive" "${PHP_COMMAND} -c ./php/default.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys with keep alive and ev" "${PHP_COMMAND} -c ./php/default-with-ev.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys with keep alive and event" "${PHP_COMMAND} -c ./php/default-with-event.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys with keep alive and uv" "${PHP_COMMAND} -c ./php/default-with-uv.ini ${AERYS_COMMAND}"
 
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"

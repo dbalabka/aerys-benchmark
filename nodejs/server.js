@@ -2,7 +2,6 @@ var http = require('http');
 
 var srv = http.createServer(function (req, res) {
   var data, status;
-  res.sendDate = false;
   if(req.url === '/') {
     data = 'Hello world!';
     status = 200;
@@ -11,10 +10,11 @@ var srv = http.createServer(function (req, res) {
     status = 404;
   }
   res.writeHead(status, {
-    'Content-Type': 'text/plain; encoding=utf-8',
-    'Content-Length': data.length});
+      'Content-Type': 'text/plain; encoding=utf-8',
+      'Content-Length': data.length,
+      'X-Powered-By': 'Node Server'
+  });
   res.end(data);
 });
-
 
 srv.listen(8080, '0.0.0.0');

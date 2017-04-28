@@ -18,6 +18,9 @@ but still slower by ~23%.
 Aerys latency distribution has much higher standard deviation in comparision with NodeJS.
 There no big difference between reactors. For some reason native PHP reactor 
 has almost same performance as reactors based on ev, libevent or php-uv extensions.
+It is hard to compare ReactPHP with other servers implementations, 
+because it doesn't support keeping connections alive.
+But comparing Aerys non-keep-alive version ReactPHP we can see that ReactPHP performing better. 
 
 ## Testing environment
 
@@ -73,8 +76,15 @@ with disabled native assertion framework:
 
 ## ReactPHP
 
-ReactPHP is used only 
+At this moment ReactPHP does not support keeping alive connection: 
+* https://github.com/reactphp/http/blob/master/README.md#response
+* https://github.com/reactphp/http/issues/39
 
+```text
+Connection: close
+```
+
+### Benchmark
 Start server:
 ```bash
 cd ./react-php
@@ -109,12 +119,17 @@ const AERYS_OPTIONS = [
 ];
 ```
 
-### NativeReactor
+By default Aerys keeping connections alive with following settings: 
+```text
+keep-alive: timeout=6, max=999
+```
+
+### Benchmark with NativeReactor
 
 Start server with one worker only:
 ```bash
 cd ./aerys
-php -n -dzend.assertions=-1 ./vendor/bin/aerys -w 1 -c ./server.php
+php -n -dzend.assertions=-1 ./vendor/bin/aerys -w 1 -c ./server.php --worker-args="-n"
 ```
 
 Results:
@@ -154,12 +169,38 @@ Requests/sec:   3736.22
 Transfer/sec:    645.46KB
 ```
 
-### LibeventReactor
+Start server without keeping connection alive:
+```bash
+cd ./aerys
+php -n -dzend.assertions=-1 ./vendor/bin/aerys -w 1 -c ./server-wo-keep-alive.php --worker-args="-n"
+```
+
+As you can see server performance significantly decreases. 
+Comparing with ReactPHP latency distribution is worse,
+but overall performance is same. 
+```text
+Running 30s test @ http://127.0.0.1:8080/
+  1 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    35.98ms   68.99ms 705.30ms   96.94%
+    Req/Sec     3.41k     1.15k    5.30k    72.34%
+  Latency Distribution
+     50%   22.38ms
+     75%   24.32ms
+     90%   49.09ms
+     99%  509.17ms
+  16249 requests in 30.03s, 2.54MB read
+Requests/sec:    541.04
+Transfer/sec:     86.65KB
+
+```
+
+### Benchmark with LibeventReactor
 
 Start server:
 ```bash
 cd ./aerys
-php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-event/event.so" ./vendor/bin/aerys -w 1 -c ./server.php
+php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-event/event.so" ./vendor/bin/aerys -w 1 -c ./server.php  --worker-args="-n"
 ```
 
 Results:
@@ -179,12 +220,12 @@ Requests/sec:  10449.34
 Transfer/sec:      1.76MB
 ```
 
-### EvReactor
+### Benchmark with EvReactor
 
 Start server:
 ```bash
 cd ./aerys
-php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-ev/ev.so" ./vendor/bin/aerys -w 1 -c ./server.php
+php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-ev/ev.so" ./vendor/bin/aerys -w 1 -c ./server.php  --worker-args="-n"
 ```
 
 Results:
@@ -204,12 +245,12 @@ Requests/sec:  10710.55
 Transfer/sec:      1.81MB
 ```
 
-### UvReactor
+### Benchmark with UvReactor
 
 Start server:
 ```bash
 cd ./aerys
-php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-uv/uv.so" ./vendor/bin/aerys -w 1 -c ./server.php
+php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-uv/uv.so" ./vendor/bin/aerys -w 1 -c ./server.php  --worker-args="-n"
 ```
 
 Results:
@@ -231,6 +272,13 @@ Transfer/sec:      1.77MB
 
 NodeJS
 ======
+
+By default NodeJS keeping connections alive without limiting timeout and connections amount:
+```text
+Connection: keep-alive
+```
+
+### Benchmark with keep alive
 
 Start server:
 ```bash

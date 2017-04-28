@@ -9,6 +9,9 @@
 const AERYS_OPTIONS = [
     // help avoid connection errors during benchmark
     'connectionsPerIP' => 100,
+    'disableKeepAlive' => true,
+    'maxKeepAliveRequests' => 1,
+    'keepAliveTimeout' => 1,
 ];
 
 (new \Aerys\Host)
