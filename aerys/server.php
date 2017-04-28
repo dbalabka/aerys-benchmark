@@ -23,7 +23,6 @@ const AERYS_OPTIONS = [
             $status = 400;
         }
         $resp->addHeader('Content-Type', 'text/plain; encoding=utf-8');
-        $resp->addHeader('Content-Length', strlen($data));
         $resp->addHeader('X-Powered-By', 'AerysServer');
         $resp->setStatus($status);
         $resp->end($data);
