@@ -62,7 +62,7 @@ start_benchmark "Benchmarking Aerys (keep-alive + OPCache + uv)" "${PHP_COMMAND}
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"
 eval "${NODEJS_COMMAND} -v"
-start_benchmark "Benchmarking NodeJS" "${NODEJS_COMMAND} ${NODEJS_SERVER_COMMAND}"
+start_benchmark "Benchmarking NodeJS (keep-alive)" "${NODEJS_COMMAND} ${NODEJS_SERVER_COMMAND}"
 
 printf "\n${INFO}CPU info:${END}\n"
 cat /proc/cpuinfo 2>/dev/null | egrep "model name|processor|cores|flags|cache" \
