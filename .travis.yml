@@ -22,6 +22,7 @@ before_script:
     - git clone https://github.com/wg/wrk.git && cd wrk
     - make
     - cd ../bin && ln -s ../wrk/wrk wrk && cd ..
+    - pecl install ev event uv
     - composer install -o -d ./aerys
     - composer install -o -d ./react-php
     - chmod +x ./start_benchmark.sh
