@@ -22,7 +22,7 @@ $server->on('request', function (Request $request, Response $response) {
     $response->writeHead(
         $status,
         [
-            'Content-Type' => 'text/plain; encoding=utf-8',
+            'Content-Type' => 'text/plain; charset=utf-8',
             'Content-Length' => strlen($data),
         ]
     );

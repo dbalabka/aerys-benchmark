@@ -22,7 +22,7 @@ const AERYS_OPTIONS = [
             $data = 'Not Found';
             $status = 400;
         }
-        $resp->addHeader('Content-Type', 'text/plain; encoding=utf-8');
+        $resp->addHeader('Content-Type', 'text/plain; charset=utf-8');
         $resp->addHeader('X-Powered-By', 'AerysServer');
         $resp->setStatus($status);
         $resp->end($data);

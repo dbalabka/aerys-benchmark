@@ -10,7 +10,7 @@ var srv = http.createServer(function (req, res) {
     status = 404;
   }
   res.writeHead(status, {
-      'Content-Type': 'text/plain; encoding=utf-8',
+      'Content-Type': 'text/plain; charset=utf-8',
       'Content-Length': data.length,
       'X-Powered-By': 'Node Server'
   });
