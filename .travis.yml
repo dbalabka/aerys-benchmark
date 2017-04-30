@@ -25,7 +25,7 @@ before_script:
     - git clone https://github.com/libuv/libuv.git && cd libuv && git checkout v1.11.0
     - sh autogen.sh && ./configure && make && make check && sudo make install && cd ..
     - git clone https://github.com/libevent/libevent.git && cd libevent && git checkout release-2.1.8-stable
-    - ./configure && make && make verify && sudo make install && cd ..
+    - sh autogen.sh && ./configure && make && make verify && sudo make install && cd ..
     - printf "\n\n\n\n\n\n\n" | pecl install ev event uv-beta
     - composer install -o -d ./aerys
     - composer install -o -d ./react-php
