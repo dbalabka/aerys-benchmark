@@ -35,9 +35,19 @@ function start_benchmark {
     killall -9 php node
     sleep 2
 }
-
-printf "PHP version:\n"
+function checkPhpConfiguration {
+    printf "\n${INFO}Check PHP configuration: ${END}"
+    eval "${PHP_COMMAND} -c ./php/default.ini -i | grep 'zend.assertions => -1 => -1' 1>/dev/null" || { printf "${WARNING}Zend assertion isn't disabled!${END}\n"; exit 1; }
+    eval "${PHP_COMMAND} -c ./php/default-opcache.ini -i | grep 'opcache.enable => On => On' 1>/dev/null" || { printf "${WARNING}OpCache isn't loaded!${END}\n"; exit 1; }
+    eval "${PHP_COMMAND} -c ./php/default-opcache-ev.ini -i | grep  '^ev$' 1>/dev/null" || { printf "${WARNING}EV isn't loaded!${END}\n"; exit 1; }
+    eval "${PHP_COMMAND} -c ./php/default-opcache-event.ini -i | grep  '^event$' 1>/dev/null" || { printf "${WARNING}Libevent isn't enabled!${END}\n"; exit 1; }
+    eval "${PHP_COMMAND} -c ./php/default-opcache-uv.ini -i | grep  '^uv$' 1>/dev/null" || { printf "${WARNING}Libuv isn't enabled!${END}\n"; exit 1; }
+    printf "OK\n"
+}
+printf "${INFO}PHP version:${END}\n"
 eval "${PHP_COMMAND} -c ./php/default.ini -v"
+
+checkPhpConfiguration
 
 start_benchmark "Benchmarking ReactPHP (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${REACTPHP_COMMAND}"
 start_benchmark "Benchmarking ReactPHP (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${REACTPHP_COMMAND}"
