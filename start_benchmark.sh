@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PHP_COMMAND="php -n ${PHP_OPTIONS}"
-NODEJS_COMMAND='node'
+NODEJS_COMMAND='node --always-opt'
 
 AERYS_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
 AERYS_WO_KEEP_ALIVE_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-keep-alive.php --worker-args=\"-n\""
@@ -27,6 +27,12 @@ function start_benchmark {
 
     printf "\n\n${INFO}Response example:${END}\n"
     curl -I $URL || { printf "${WARNING}Failed to connect to server!${END}\n"; exit 1; }
+
+    # To avoid any JIT slowness issues on start-up
+    # we have to warm-up JIT
+    printf "${INFO}Server warm-up ...${END}\n"
+    ./bin/wrk -t1 -c100 -d1s --latency ${URL} 1>/dev/null || { printf "${WARNING}Failed to start benchmark!${END}\n"; exit 1; }
+    sleep 4
 
     printf "${INFO}Run benchmark...${END}\n"
     ./bin/wrk -t1 -c100 -d30s --latency ${URL} || { printf "${WARNING}Failed to start benchmark!${END}\n"; exit 1; }
