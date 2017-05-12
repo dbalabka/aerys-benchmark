@@ -61,6 +61,21 @@ Testing settings:
 wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
 ```
 
+Comparison table
+================
+
+| Server (settings)                     | 50%           | 75%   | 90% | 99% |
+| -------------                         |:-------------:| -----:| ---:|---: |
+| ReactPHP (w/o keep-alive)             |               |       |     |     |
+| ReactPHP (w/o keep-alive + OPCache)   |               |       |     |     |
+| Aerys (w/o keep-alive)                |               |       |     |     |
+| Aerys (w/o keep-alive + OPCache)      |               |       |     |     |
+| Aerys (keep-alive + OPCache)          |               |       |     |     |
+| Aerys (keep-alive + OPCache + ev)     |               |       |     |     |
+| Aerys (keep-alive + OPCache + event)  |               |       |     |     |
+| Aerys (keep-alive + OPCache + uv)     |               |       |     |     |
+| NodeJS (keep-alive)                   |               |       |     |     |
+ 
 PHP
 ===
 
@@ -301,4 +316,19 @@ Running 30s test @ http://127.0.0.1:8080/
   416258 requests in 30.00s, 46.45MB read
 Requests/sec:  13873.65
 Transfer/sec:      1.55MB
+```
+
+Build and run benchmark
+=======================
+
+To build Docker images just run: 
+```bash
+sh ./build.sh
+```
+
+To run benchmark:
+```bash
+docker run aerys-benchmark:php70
+docker run aerys-benchmark:php71
+docker run aerys-benchmark:php72jit
 ```

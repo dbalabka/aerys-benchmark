@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ba74a4a5fecf35972642ea1de0bd18b",
-    "content-hash": "a01c5d4e1050d7ea9b5d31205693a5f0",
+    "hash": "372a99187387d79af3ada47b62f3947a",
+    "content-hash": "9032276a529c8dd0a1504b232ee952fb",
     "packages": [
         {
             "name": "amphp/aerys",
-            "version": "dev-benchmark-fixes",
+            "version": "dev-add-worker-options",
             "source": {
                 "type": "git",
                 "url": "https://github.com/torinaki/aerys.git",
-                "reference": "166a14a14bc42311cdba4f7489f373591b731e0f"
+                "reference": "609d08c629728a25f5aa84a228a54c153e593bbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/torinaki/aerys/zipball/166a14a14bc42311cdba4f7489f373591b731e0f",
-                "reference": "166a14a14bc42311cdba4f7489f373591b731e0f",
+                "url": "https://api.github.com/repos/torinaki/aerys/zipball/609d08c629728a25f5aa84a228a54c153e593bbb",
+                "reference": "609d08c629728a25f5aa84a228a54c153e593bbb",
                 "shasum": ""
             },
             "require": {
@@ -90,22 +90,22 @@
                 "websocket"
             ],
             "support": {
-                "source": "https://github.com/torinaki/aerys/tree/benchmark-fixes"
+                "source": "https://github.com/torinaki/aerys/tree/add-worker-options"
             },
-            "time": "2017-04-27 00:17:33"
+            "time": "2017-05-10 18:40:19"
         },
         {
             "name": "amphp/amp",
-            "version": "v1.2.2",
+            "version": "v1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "4f2161da5f68f274f116985635aea63b5c0f54d2"
+                "reference": "ba8335a3296a499a655d4ea18510484ee3e1310a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/4f2161da5f68f274f116985635aea63b5c0f54d2",
-                "reference": "4f2161da5f68f274f116985635aea63b5c0f54d2",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/ba8335a3296a499a655d4ea18510484ee3e1310a",
+                "reference": "ba8335a3296a499a655d4ea18510484ee3e1310a",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2016-05-12 12:54:59"
+            "time": "2016-09-04 12:46:12"
         },
         {
             "name": "amphp/cache",
@@ -594,7 +594,7 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
@@ -641,7 +641,7 @@
         },
         {
             "name": "seld/cli-prompt",
-            "version": "1.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/cli-prompt.git",
@@ -689,8 +689,15 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [],
-    "minimum-stability": "stable",
+    "aliases": [
+        {
+            "alias": "dev-master",
+            "alias_normalized": "9999999-dev",
+            "version": "dev-add-worker-options",
+            "package": "amphp/aerys"
+        }
+    ],
+    "minimum-stability": "dev",
     "stability-flags": {
         "amphp/aerys": 20
     },

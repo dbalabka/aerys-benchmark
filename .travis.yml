@@ -2,34 +2,25 @@ language: php
 
 dist: trusty
 
+sudo: required
+
+services:
+  - docker
+
 matrix:
     include:
         -
-            php: 7.0
             env:
-                - TRAVIS_NODE_VERSION="7.7"
+                - PHP_DOCKER_IMAGE="dmitrybalabka/aerys-benchmark:php70"
         -
-            php: 7.1
             env:
-                - TRAVIS_NODE_VERSION="7.7"
+                - PHP_DOCKER_IMAGE="dmitrybalabka/aerys-benchmark:php71"
         -
-            php: nightly
             env:
-                - TRAVIS_NODE_VERSION="7.7"
+                - PHP_DOCKER_IMAGE="dmitrybalabka/aerys-benchmark:php72jit"
 
 before_script:
-    - sudo apt-get install build-essential libssl-dev git -y
-    - git clone https://github.com/wg/wrk.git && cd wrk
-    - make
-    - cd ../bin && ln -s ../wrk/wrk wrk && cd ..
-    - git clone https://github.com/libuv/libuv.git && cd libuv && git checkout v1.11.0
-    - sh autogen.sh && ./configure && make && sudo make install && cd ..
-    - git clone https://github.com/libevent/libevent.git && cd libevent && git checkout release-2.1.8-stable
-    - sh autogen.sh && ./configure && make && sudo make install && cd ..
-    - printf "\n\n\n\n\n\n\n" | pecl install ev event uv-beta
-    - composer install -o -d ./aerys
-    - composer install -o -d ./react-php
-    - chmod +x ./start_benchmark.sh
+    - docker pull ${PHP_DOCKER_IMAGE}
 
 script:
-    - ./start_benchmark.sh
+    - docker run ${PHP_DOCKER_IMAGE}

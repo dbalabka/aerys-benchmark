@@ -1,11 +1,12 @@
 {
     "require": {
-        "amphp/aerys": "dev-benchmark-fixes"
+        "amphp/aerys": "dev-add-worker-options as dev-master"
     },
     "repositories": [
         {
             "type": "vcs",
             "url":  "git@github.com:torinaki/aerys.git"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
