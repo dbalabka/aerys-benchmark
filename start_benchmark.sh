@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-PHP_COMMAND="php -n ${PHP_OPTIONS}"
+PHP_COMMAND="php -n"
 NODEJS_COMMAND='node'
 
 AERYS_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
 AERYS_WO_KEEP_ALIVE_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-keep-alive.php --worker-args=\"-n\""
+AERYS_WO_TIMEOUT="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-timeout.php --worker-args=\"-n\""
 REACTPHP_COMMAND="./react-php/server.php"
 NODEJS_SERVER_COMMAND="./nodejs/server.js"
 
@@ -61,6 +62,7 @@ php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Aerys (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys (keep-alive + OPCache + w/o timeout)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_WO_TIMEOUT}"
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND}"
@@ -68,7 +70,7 @@ start_benchmark "Benchmarking Aerys (keep-alive + OPCache + uv)" "${PHP_COMMAND}
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"
 eval "${NODEJS_COMMAND} -v"
-start_benchmark "Benchmarking NodeJS (keep-alive)" "${NODEJS_COMMAND} ${NODEJS_SERVER_COMMAND}"
+start_benchmark "Benchmarking NodeJS (keep-alive + w/o timeout)" "${NODEJS_COMMAND} ${NODEJS_SERVER_COMMAND}"
 
 printf "\n${INFO}CPU info:${END}\n"
 cat /proc/cpuinfo 2>/dev/null | egrep "model name|processor|cores|flags|cache" \

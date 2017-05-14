@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "372a99187387d79af3ada47b62f3947a",
-    "content-hash": "9032276a529c8dd0a1504b232ee952fb",
+    "hash": "a04ebb45b28d402542b90f2473d5140f",
+    "content-hash": "28c8700236f0e6f41eab31625c2d5383",
     "packages": [
         {
             "name": "amphp/aerys",
-            "version": "dev-add-worker-options",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/torinaki/aerys.git",
-                "reference": "609d08c629728a25f5aa84a228a54c153e593bbb"
+                "url": "https://github.com/amphp/aerys.git",
+                "reference": "d1b0fd1e61dc1d3cf707d93acf556f7ec5196271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/torinaki/aerys/zipball/609d08c629728a25f5aa84a228a54c153e593bbb",
-                "reference": "609d08c629728a25f5aa84a228a54c153e593bbb",
+                "url": "https://api.github.com/repos/amphp/aerys/zipball/d1b0fd1e61dc1d3cf707d93acf556f7ec5196271",
+                "reference": "d1b0fd1e61dc1d3cf707d93acf556f7ec5196271",
                 "shasum": ""
             },
             "require": {
@@ -54,11 +54,7 @@
                     "lib/constants.php"
                 ]
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Aerys\\Test\\": "test/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -89,10 +85,7 @@
                 "server",
                 "websocket"
             ],
-            "support": {
-                "source": "https://github.com/torinaki/aerys/tree/add-worker-options"
-            },
-            "time": "2017-05-10 18:40:19"
+            "time": "2017-05-13 23:38:08"
         },
         {
             "name": "amphp/amp",
@@ -689,14 +682,7 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [
-        {
-            "alias": "dev-master",
-            "alias_normalized": "9999999-dev",
-            "version": "dev-add-worker-options",
-            "package": "amphp/aerys"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "amphp/aerys": 20
