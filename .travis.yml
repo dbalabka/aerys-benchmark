@@ -11,16 +11,16 @@ matrix:
     include:
         -
             env:
-                - PHP_DOCKER_IMAGE="dmitrybalabka/aerys-benchmark:php70"
+                - DOCKER_PHP_VERSION="php70"
         -
             env:
-                - PHP_DOCKER_IMAGE="dmitrybalabka/aerys-benchmark:php71"
+                - DOCKER_PHP_VERSION="php71"
         -
             env:
-                - PHP_DOCKER_IMAGE="dmitrybalabka/aerys-benchmark:php72jit"
+                - DOCKER_PHP_VERSION="php72jit"
 
 before_script:
-    - docker pull ${PHP_DOCKER_IMAGE}
+    - docker build -t "aerys-benchmark:${DOCKER_PHP_VERSION}" -f "./build/${DOCKER_PHP_VERSION}/Dockerfile" .
 
 script:
-    - docker run ${PHP_DOCKER_IMAGE}
+    - docker run aerys-benchmark:${DOCKER_PHP_VERSION}
