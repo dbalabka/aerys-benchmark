@@ -1,0 +1,6 @@
+{
+    "require": {
+        "amphp/aerys": "dev-amp_v2"
+    },
+    "minimum-stability": "dev"
+}

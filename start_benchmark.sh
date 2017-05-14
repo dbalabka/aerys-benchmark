@@ -4,6 +4,7 @@ PHP_COMMAND="php -n"
 NODEJS_COMMAND='node'
 
 AERYS_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
+AERYS2_COMMAND="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server.php"
 AERYS_WO_KEEP_ALIVE_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-keep-alive.php --worker-args=\"-n\""
 AERYS_WO_TIMEOUT="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-timeout.php --worker-args=\"-n\""
 REACTPHP_COMMAND="./react-php/server.php"
@@ -62,6 +63,7 @@ php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Aerys (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys v2 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS2_COMMAND}"
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache + w/o timeout)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_WO_TIMEOUT}"
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
 start_benchmark "Benchmarking Aerys (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
