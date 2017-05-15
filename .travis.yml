@@ -19,7 +19,9 @@ matrix:
             env:
                 - DOCKER_PHP_VERSION="php72jit"
 
-before_script:
+before_install:
+    - sudo apt-get update
+    - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
     - docker build -t "aerys-benchmark:${DOCKER_PHP_VERSION}" -f "./build/${DOCKER_PHP_VERSION}/Dockerfile" .
 
 script:
