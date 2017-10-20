@@ -22,11 +22,10 @@ function start_benchmark {
     printf "\n${SUCCESS}${1}${END}"
 
     printf "\n\n${INFO}Start server...${END}\n${2}"
-    #eval "${2} 1>/dev/null &"
-    eval "${2} &"
+    eval "${2} 1>/dev/null &"
     SERVER_PID=$!
 
-    sleep 5
+    sleep 1
 
     printf "\n\n${INFO}Response example:${END}\n"
     curl -I $URL || { printf "${WARNING}Failed to connect to server!${END}\n"; exit 1; }

@@ -26,6 +26,7 @@ apt-get update \
 && php composer-setup.php \
 && php -r "unlink('composer-setup.php');" \
 && php composer.phar install -o -d ./aerys \
+&& php composer.phar install -o -d ./aerys2 \
 && php composer.phar install -o -d ./react-php \
 && chmod +x ./start_benchmark.sh \
 && rm -rf ./wrk \
