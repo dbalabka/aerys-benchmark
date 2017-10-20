@@ -2,7 +2,6 @@ const http = require('http');
 
 const srv = http.createServer( (req, res) => {
   let data, status;
-  res.sendDate = false;
   if(req.url === '/') {
     data = 'Hello world!';
     status = 200;
