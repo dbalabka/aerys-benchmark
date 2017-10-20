@@ -22,7 +22,8 @@ function start_benchmark {
     printf "\n${SUCCESS}${1}${END}"
 
     printf "\n\n${INFO}Start server...${END}\n${2}"
-    eval "${2} 1>/dev/null &"
+    #eval "${2} 1>/dev/null &"
+    eval "${2} &"
     SERVER_PID=$!
 
     sleep 5
