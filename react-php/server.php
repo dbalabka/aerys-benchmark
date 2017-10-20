@@ -1,33 +1,34 @@
 <?php
 
 use React\EventLoop\Factory;
-use React\Socket\Server;
-use React\Http\Request;
+use React\Socket\Server as ServerSocket;
 use React\Http\Response;
+use React\Http\Server;
+use Psr\Http\Message\ServerRequestInterface;
 
 require __DIR__ . '/vendor/autoload.php';
 
 $loop = Factory::create();
-$socket = new Server('0.0.0.0:8080', $loop);
+$socket = new ServerSocket('0.0.0.0:8080', $loop);
 
-$server = new \React\Http\Server($socket);
-$server->on('request', function (Request $request, Response $response) {
-    if ($request->getPath() === '/') {
+$server = new Server(function (ServerRequestInterface $request) {
+    if ($request->getUri()->getPath() === '/') {
         $data = 'Hello world!';
         $status = 200;
     } else {
         $data = 'Not Found';
         $status = 400;
     }
-    $response->writeHead(
+    return new Response(
         $status,
         [
             'Content-Type' => 'text/plain; charset=utf-8',
             'Content-Length' => strlen($data),
-        ]
+        ],
+        $data . PHP_EOL
     );
-    $response->end($data . PHP_EOL);
 });
+$server->listen($socket);
 
 echo 'Listening on http://' . $socket->getAddress() . PHP_EOL;
 

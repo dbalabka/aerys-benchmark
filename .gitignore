@@ -1,4 +1,5 @@
 composer.phar
 /react-php/vendor/
 /aerys/vendor/
+/aerys2/vendor/
 /bin/wrk
