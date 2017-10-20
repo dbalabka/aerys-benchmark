@@ -9,6 +9,9 @@
 const AERYS_OPTIONS = [
     // help avoid connection errors during benchmark
     'connectionsPerIP' => 100,
+    // to emulate NodeJS behavior
+    'connectionTimeout' => 10000,
+    'maxRequestsPerConnection' => PHP_INT_MAX,
 ];
 
 ($hosts[] = new \Aerys\Host)
