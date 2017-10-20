@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/torinaki/aerys-benchmark.svg?branch=master)](https://travis-ci.org/torinaki/aerys-benchmark)
+
 About
 =====
 
