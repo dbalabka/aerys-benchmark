@@ -9,7 +9,7 @@ apt-get update \
 && apt-get install build-essential libssl-dev git libtool m4 automake psmisc nodejs -y \
 && git clone https://github.com/wg/wrk.git && cd wrk \
 && make \
-&& cd ../bin && rm wrk && cp ../wrk/wrk wrk && cd .. \
+&& cd ../bin && rm -f wrk && cp ../wrk/wrk wrk && cd .. \
 && git clone https://github.com/libuv/libuv.git && cd libuv && git checkout v1.11.0 \
 && sh autogen.sh && ./configure && make `#&& make check` \
 && make install && cd .. \
