@@ -27,4 +27,4 @@ before_install:
     - docker build -t "aerys-benchmark:${DOCKER_PHP_VERSION}" -f "./build/${DOCKER_PHP_VERSION}/Dockerfile" .
 
 script:
-    - docker run aerys-benchmark:${DOCKER_PHP_VERSION}
+    - docker run --ulimit nofile=30000:30000 aerys-benchmark:${DOCKER_PHP_VERSION}
