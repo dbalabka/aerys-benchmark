@@ -10,7 +10,7 @@ AERYS_WO_TIMEOUT="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server-wo-timeout.p
 REACTPHP_COMMAND="./react-php/server.php"
 NODEJS_SERVER_COMMAND="./nodejs/server.js"
 
-URL="http://127.0.0.1:8080/"
+URL="http://localhost:8080/"
 
 WARNING='\033[41m'
 SUCCESS='\033[42m'
