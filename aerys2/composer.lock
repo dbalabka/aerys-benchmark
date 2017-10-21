@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a04ebb45b28d402542b90f2473d5140f",
-    "content-hash": "28c8700236f0e6f41eab31625c2d5383",
+    "content-hash": "aa0069adb69b830a955f3f6cfbe659a2",
     "packages": [
         {
             "name": "amphp/aerys",
-            "version": "dev-master",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/aerys.git",
-                "reference": "1019293eb4b63a7e53bf740af5cb3357a39bb6f5"
+                "reference": "e0befc8ad27970fb252e2e7a2216d38384a23611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/aerys/zipball/1019293eb4b63a7e53bf740af5cb3357a39bb6f5",
-                "reference": "1019293eb4b63a7e53bf740af5cb3357a39bb6f5",
+                "url": "https://api.github.com/repos/amphp/aerys/zipball/e0befc8ad27970fb252e2e7a2216d38384a23611",
+                "reference": "e0befc8ad27970fb252e2e7a2216d38384a23611",
                 "shasum": ""
             },
             "require": {
@@ -34,7 +33,7 @@
             "require-dev": {
                 "amphp/artax": "^3",
                 "amphp/phpunit-util": "^1",
-                "friendsofphp/php-cs-fixer": "^2.3",
+                "friendsofphp/php-cs-fixer": "^2.3@dev",
                 "http2jp/hpack-test-case": "^1",
                 "phpunit/phpunit": "^6"
             },
@@ -44,7 +43,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.4.0-dev"
+                    "dev-master": "0.6.0-dev"
                 }
             },
             "autoload": {
@@ -92,7 +91,7 @@
                 "server",
                 "websocket"
             ],
-            "time": "2017-07-19 14:32:19"
+            "time": "2017-10-15T22:51:39+00:00"
         },
         {
             "name": "amphp/amp",
@@ -100,12 +99,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "334cf8ab3c7a2f5b4e344e629032783324277f09"
+                "reference": "6165e3afebe6db7a807e242fa4e96f38a73b67f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/334cf8ab3c7a2f5b4e344e629032783324277f09",
-                "reference": "334cf8ab3c7a2f5b4e344e629032783324277f09",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/6165e3afebe6db7a807e242fa4e96f38a73b67f8",
+                "reference": "6165e3afebe6db7a807e242fa4e96f38a73b67f8",
                 "shasum": ""
             },
             "require": {
@@ -167,20 +166,20 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2017-07-17 21:42:51"
+            "time": "2017-10-20T17:13:27+00:00"
         },
         {
             "name": "amphp/byte-stream",
-            "version": "v1.1.2",
+            "version": "v1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/byte-stream.git",
-                "reference": "6b9074fbf28fc871581204f5106c819004ed3aa3"
+                "reference": "f63b98990edc8c4e401fc8ba2834197acf2df8e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/byte-stream/zipball/6b9074fbf28fc871581204f5106c819004ed3aa3",
-                "reference": "6b9074fbf28fc871581204f5106c819004ed3aa3",
+                "url": "https://api.github.com/repos/amphp/byte-stream/zipball/f63b98990edc8c4e401fc8ba2834197acf2df8e2",
+                "reference": "f63b98990edc8c4e401fc8ba2834197acf2df8e2",
                 "shasum": ""
             },
             "require": {
@@ -224,20 +223,20 @@
                 "non-blocking",
                 "stream"
             ],
-            "time": "2017-07-15 08:11:27"
+            "time": "2017-10-17T07:22:17+00:00"
         },
         {
             "name": "amphp/cache",
-            "version": "v1.0.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/cache.git",
-                "reference": "3b5c5243f81eb71f63f49dc03764754345810636"
+                "reference": "ab2339e465d9d383dc748f288d530fd7cd7aadea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/cache/zipball/3b5c5243f81eb71f63f49dc03764754345810636",
-                "reference": "3b5c5243f81eb71f63f49dc03764754345810636",
+                "url": "https://api.github.com/repos/amphp/cache/zipball/ab2339e465d9d383dc748f288d530fd7cd7aadea",
+                "reference": "ab2339e465d9d383dc748f288d530fd7cd7aadea",
                 "shasum": ""
             },
             "require": {
@@ -270,20 +269,20 @@
             ],
             "description": "A promise-aware caching API for Amp.",
             "homepage": "https://github.com/amphp/cache",
-            "time": "2017-06-16 19:14:28"
+            "time": "2017-10-04T19:22:12+00:00"
         },
         {
             "name": "amphp/dns",
-            "version": "v0.9.6",
+            "version": "v0.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/dns.git",
-                "reference": "a5ccdd9a0885c5ed7e6048bf87eb51895263b846"
+                "reference": "1a41089d84675bbeed3b5c655ffccd3318a21f37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/dns/zipball/a5ccdd9a0885c5ed7e6048bf87eb51895263b846",
-                "reference": "a5ccdd9a0885c5ed7e6048bf87eb51895263b846",
+                "url": "https://api.github.com/repos/amphp/dns/zipball/1a41089d84675bbeed3b5c655ffccd3318a21f37",
+                "reference": "1a41089d84675bbeed3b5c655ffccd3318a21f37",
                 "shasum": ""
             },
             "require": {
@@ -347,20 +346,20 @@
                 "dns",
                 "resolve"
             ],
-            "time": "2017-07-13 19:17:16"
+            "time": "2017-09-12T15:08:38+00:00"
         },
         {
             "name": "amphp/file",
-            "version": "v0.2.3",
+            "version": "v0.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/file.git",
-                "reference": "169a1d1b36571816b6583a7cf77dc322aa58ecc0"
+                "reference": "577bcc1f92252a795f9871e183b0caef975c9635"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/file/zipball/169a1d1b36571816b6583a7cf77dc322aa58ecc0",
-                "reference": "169a1d1b36571816b6583a7cf77dc322aa58ecc0",
+                "url": "https://api.github.com/repos/amphp/file/zipball/577bcc1f92252a795f9871e183b0caef975c9635",
+                "reference": "577bcc1f92252a795f9871e183b0caef975c9635",
                 "shasum": ""
             },
             "require": {
@@ -413,7 +412,7 @@
                 "non-blocking",
                 "static"
             ],
-            "time": "2017-07-18 06:01:20"
+            "time": "2017-07-21T06:32:23+00:00"
         },
         {
             "name": "amphp/parallel",
@@ -421,12 +420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/parallel.git",
-                "reference": "f716981c9577ffd82150b0928577b08e9a815be3"
+                "reference": "0ef74413afd6370d3c348f719d527e3155694504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/parallel/zipball/f716981c9577ffd82150b0928577b08e9a815be3",
-                "reference": "f716981c9577ffd82150b0928577b08e9a815be3",
+                "url": "https://api.github.com/repos/amphp/parallel/zipball/0ef74413afd6370d3c348f719d527e3155694504",
+                "reference": "0ef74413afd6370d3c348f719d527e3155694504",
                 "shasum": ""
             },
             "require": {
@@ -483,7 +482,7 @@
                 "multi-processing",
                 "multi-threading"
             ],
-            "time": "2017-07-19 05:14:16"
+            "time": "2017-07-29T15:29:16+00:00"
         },
         {
             "name": "amphp/parser",
@@ -534,7 +533,7 @@
                 "parser",
                 "stream"
             ],
-            "time": "2017-06-06 05:29:10"
+            "time": "2017-06-06T05:29:10+00:00"
         },
         {
             "name": "amphp/process",
@@ -582,7 +581,7 @@
             ],
             "description": "Asynchronous process manager",
             "homepage": "https://github.com/amphp/process",
-            "time": "2017-07-18 03:37:19"
+            "time": "2017-07-18T03:37:19+00:00"
         },
         {
             "name": "amphp/socket",
@@ -649,20 +648,20 @@
                 "tcp",
                 "tls"
             ],
-            "time": "2017-07-03 10:48:49"
+            "time": "2017-07-03T10:48:49+00:00"
         },
         {
             "name": "amphp/uri",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/uri.git",
-                "reference": "59b0d5df331f7a02da8b1c7f2d092c4722e97aa9"
+                "reference": "2de94666447319d8695f2d11f3f005d5fee0876a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/uri/zipball/59b0d5df331f7a02da8b1c7f2d092c4722e97aa9",
-                "reference": "59b0d5df331f7a02da8b1c7f2d092c4722e97aa9",
+                "url": "https://api.github.com/repos/amphp/uri/zipball/2de94666447319d8695f2d11f3f005d5fee0876a",
+                "reference": "2de94666447319d8695f2d11f3f005d5fee0876a",
                 "shasum": ""
             },
             "require-dev": {
@@ -693,7 +692,7 @@
             ],
             "description": "Uri Parser and Resolver.",
             "homepage": "https://github.com/amphp/uri",
-            "time": "2017-06-24 07:41:03"
+            "time": "2017-09-10T09:39:50+00:00"
         },
         {
             "name": "amphp/windows-registry",
@@ -733,7 +732,7 @@
                 }
             ],
             "description": "Windows Registry Reader.",
-            "time": "2017-06-16 08:55:58"
+            "time": "2017-06-16T08:55:58+00:00"
         },
         {
             "name": "daverandom/libdns",
@@ -766,7 +765,7 @@
             "keywords": [
                 "dns"
             ],
-            "time": "2016-04-29 20:47:45"
+            "time": "2016-04-29T20:47:45+00:00"
         },
         {
             "name": "league/climate",
@@ -817,7 +816,7 @@
                 "php",
                 "terminal"
             ],
-            "time": "2016-04-04 20:24:59"
+            "time": "2016-04-04T20:24:59+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -860,7 +859,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-01-19 11:35:12"
+            "time": "2017-01-19T11:35:12+00:00"
         },
         {
             "name": "psr/log",
@@ -907,7 +906,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "seld/cli-prompt",
@@ -955,15 +954,13 @@
                 "input",
                 "prompt"
             ],
-            "time": "2017-03-18 11:32:45"
+            "time": "2017-03-18T11:32:45+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "amphp/aerys": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

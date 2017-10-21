@@ -1,6 +1,6 @@
 {
     "require": {
-        "amphp/aerys": "dev-master"
+        "amphp/aerys": "^0.7"
     },
     "minimum-stability": "dev"
 }
