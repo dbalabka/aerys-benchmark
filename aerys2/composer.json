@@ -2,5 +2,6 @@
     "require": {
         "amphp/aerys": "^0.7"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

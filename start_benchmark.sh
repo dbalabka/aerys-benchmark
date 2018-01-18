@@ -56,17 +56,17 @@ start_benchmark "Benchmarking ReactPHP (w/o keep-alive + OPCache)" "${PHP_COMMAN
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking ReactPHP (w/o keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${REACTPHP_COMMAND}"
 
-start_benchmark "Benchmarking Aerys1 (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
-start_benchmark "Benchmarking Aerys1 (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp1 (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp1 (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
-&& start_benchmark "Benchmarking Aerys1 (w/o keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
-start_benchmark "Benchmarking Aerys1 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_COMMAND}"
-start_benchmark "Benchmarking Aerys (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND}"
+&& start_benchmark "Benchmarking Aerys + Amp1 (w/o keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp1 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
-&& start_benchmark "Benchmarking Aerys (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND}"
+&& start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
+start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND}"
 
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"
