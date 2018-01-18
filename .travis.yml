@@ -27,7 +27,7 @@ before_install:
     - docker build -t "dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}" -f "./build/${DOCKER_PHP_VERSION}/Dockerfile" .
 
 script:
-    - docker run --ulimit nofile=30000:30000 aerys-benchmark:${DOCKER_PHP_VERSION}
+    - docker run --ulimit nofile=30000:30000 dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "docker-phpjit-integration" ]; then
