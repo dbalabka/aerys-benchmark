@@ -17,6 +17,9 @@ matrix:
                 - DOCKER_PHP_VERSION="php71"
         -
             env:
+                - DOCKER_PHP_VERSION="php72"
+        -
+            env:
                 - DOCKER_PHP_VERSION="php72jit"
 
 before_install:
