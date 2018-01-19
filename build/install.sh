@@ -5,8 +5,9 @@
 #
 
 apt-get update \
-&& curl -sL https://deb.nodesource.com/setup_7.x | bash - \
-&& apt-get install build-essential libssl-dev git libtool m4 automake psmisc nodejs -y \
+&& apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg -y \
+&& curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+&& apt-get nodejs -y \
 && git clone https://github.com/torinaki/wrk.git && cd wrk && git checkout lua-plot-report \
 && make \
 && cd ../bin && rm -f wrk && cp ../wrk/wrk wrk && cd .. \

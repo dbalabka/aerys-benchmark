@@ -2,7 +2,7 @@
 # PHP 7.2.* with JIT compilation support(Dynasm)
 #
 
-FROM mente/php-jit:latest
+FROM dmitrybalabka/php-jit:latest
 WORKDIR /app
 ADD . /app
 # Settings for network better performance
