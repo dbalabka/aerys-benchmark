@@ -11,7 +11,7 @@ apt-get update \
 && git clone https://github.com/torinaki/wrk.git && cd wrk && git checkout lua-plot-report \
 && make \
 && cd ../bin && rm -f wrk && cp ../wrk/wrk wrk && cd .. \
-&& git clone https://github.com/libuv/libuv.git && cd libuv && git checkout v1.19.0 \
+&& git clone https://github.com/libuv/libuv.git && cd libuv && git checkout v1.19.1 \
 && sh autogen.sh && ./configure && make `#&& make check` \
 && make install && cd .. \
 && git clone https://github.com/libevent/libevent.git && cd libevent && git checkout release-2.1.8-stable \
