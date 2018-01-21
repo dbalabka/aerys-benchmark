@@ -21,7 +21,7 @@ apt-get update \
 && docker-php-source extract \
 && pecl channel-update pecl.php.net \
 && printf "\n\n\n\n\n\n\n" | pecl install ev-1.0.4 event-2.3.0 \
-&& git clone git@github.com:bwoebi/php-uv.git && cd ./php-uv \
+&& git clone https://github.com/bwoebi/php-uv.git && cd ./php-uv \
 && phpize && ./configure && make && make install \
 && docker-php-source delete \
 && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
