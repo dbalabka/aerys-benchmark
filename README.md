@@ -13,18 +13,20 @@ This report is focused on already existing solution [Aerys](https://github.com/a
 This benchmark report is inspired by: https://github.com/squeaky-pl/japronto
 
 
-## TL;DR
+### TL;DR
 
 Overall Aerys server performance is good. It is close to NodeJS performance, 
-but still slower by ~23%. 
-Aerys latency distribution has much higher standard deviation in comparision with NodeJS.
-There no big difference between reactors. For some reason native PHP reactor 
+but still slower. Aerys latency distribution not much higher standard deviation in comparision with NodeJS.
+This benchmark did not show big difference between reactors. For some reason native PHP reactor 
 has almost same performance as reactors based on ev, libevent or php-uv extensions.
-It is hard to compare ReactPHP with other servers implementations, 
-because it doesn't support keeping connections alive.
-But comparing Aerys and ReactPHP non-keep-alive versions we can see that ReactPHP performing better.
+It is hard to compare ReactPHP with other servers implementations, because it doesn't support keeping connections alive.
+Comparing old version of Aerys and latest version of ReactPHP with non-keep-alive we can see that Aerys performing better.
+
+*Latest update: 19.01.2017*
 
 ## Testing environment
+
+### Hardware
 
 TODO: use AWS
 
@@ -44,89 +46,61 @@ Hardware:
       Memory: 8 GB
 ```
 
+### PHP
+
+Used following PHP stable [supported](http://php.net/supported-versions.php) versions `^7.1`, `^7.2`. 
+
+During benchmark we use default PHP settings by providing option `-n` that guarantee only required modules are loaded. 
+
+Native assertion framework is disabled with option `-dzend.assertions=-1`.
+
+OpCache might provide additional byte code optimizations. 
+It is enabled for CLI via [opcache.enable-cli](http://php.net/manual/en/opcache.configuration.php#ini.opcache.enable-cli)
+with maximal optimization level (`opcache.optimization_level=0xffffffff`). 
+
+Also used development version of PHP with JIT support based on branch from Zend Github repository:
+https://github.com/zendtech/php-src/tree/jit-dynasm/
+For benchmarking used [default JIT settings](https://github.com/zendtech/php-src/blob/jit-dynasm/ext/opcache/jit/zend_jit.h#L24).
+
+#### libuv
+
+Library version: [v1.19.0](https://github.com/libuv/libuv)
+Extension version: [0.2.2](https://pecl.php.net/package/uv)
+
+#### libevent
+
+Library version: [2.1.8](https://github.com/libevent/libevent)
+Extension version: [2.3.0](https://pecl.php.net/package/event)
+
+#### ev
+
+Library version: [???](https://github.com/enki/libev)
+Extension version: [1.0.4](https://pecl.php.net/package/ev)
+
+
+
+### NodeJS
+
+Latest stable version `^8.9`
+
+By default NodeJS keeping connections alive without limiting timeout and connections amount:
 ```text
-php -n --version
-PHP 7.0.18 (cli) (built: Apr 25 2017 02:53:38) ( NTS )
-Copyright (c) 1997-2017 The PHP Group
-Zend Engine v3.0.0, Copyright (c) 1998-2017 Zend Technologies
+Connection: keep-alive
 ```
 
-## Testing tool
-
-[wrk](https://github.com/wg/wrk) version 4.0.2
-
-Testing settings:
- * 1 thread
- * 100 connections
- * during 30 seconds
-```bash
-wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
-```
-
-Comparison table
-================
-
-| Server (settings)                     | 50%           | 75%   | 90% | 99% |
-| -------------                         |:-------------:| -----:| ---:|---: |
-| ReactPHP (w/o keep-alive)             |               |       |     |     |
-| ReactPHP (w/o keep-alive + OPCache)   |               |       |     |     |
-| Aerys (w/o keep-alive)                |               |       |     |     |
-| Aerys (w/o keep-alive + OPCache)      |               |       |     |     |
-| Aerys (keep-alive + OPCache)          |               |       |     |     |
-| Aerys (keep-alive + OPCache + ev)     |               |       |     |     |
-| Aerys (keep-alive + OPCache + event)  |               |       |     |     |
-| Aerys (keep-alive + OPCache + uv)     |               |       |     |     |
-| NodeJS (keep-alive)                   |               |       |     |     |
- 
-PHP
-===
-
-We use default PHP settings:   
+Server response with keep alive (159 byte)
 ```text
-  -n               No configuration (ini) files will be used
-```
-with disabled native assertion framework:
-```text
--dzend.assertions=-1
-```
-
-
-## ReactPHP
-
-At this moment ReactPHP does not support keeping alive connection: 
-* https://github.com/reactphp/http/blob/master/README.md#response
-* https://github.com/reactphp/http/issues/39
-
-```text
-Connection: close
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+Content-Length: 12
+X-Powered-By: Node Server
+Date: Sat, 20 Jan 2018 10:48:03 GMT
+Connection: keep-alive
 ```
 
-### Benchmark
-Start server:
-```bash
-cd ./react-php
-php -n -dzend.assertions=-1 ./server.php
-```
+TODO: mention about NodeJS JIT warmuping
 
-Result:
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     8.63ms    6.76ms 112.12ms   98.32%
-    Req/Sec     3.52k     1.46k    4.52k    84.78%
-  Latency Distribution
-     50%    7.86ms
-     75%    8.08ms
-     90%    9.51ms
-     99%   21.15ms
-  16123 requests in 30.04s, 2.72MB read
-  Socket errors: connect 0, read 310, write 116, timeout 0
-Requests/sec:    536.79
-Transfer/sec:     92.78KB
-```
-
-## Aerys
+### Aryes
 
 To avoid connections rejections Aerys must be configured with higher amount of simultaneous
 connections per one IP address:
@@ -141,186 +115,61 @@ By default Aerys keeping connections alive with following settings:
 keep-alive: timeout=6, max=999
 ```
 
-### Benchmark with NativeReactor
+Server response with keep alive (162 byte):
+```text
+HTTP/1.1 200 OK
+content-type: text/plain; charset=utf-8
+x-powered-by: AerysServer
+content-length: 12
+keep-alive: timeout=10000
+date: Sat, 20 Jan 2018 10:45:51 GMT
+```
+w/o keep alive (154 byte):
+```text
+HTTP/1.1 200 OK
+content-type: text/plain; charset=utf-8
+x-powered-by: AerysServer
+content-length: 12
+connection: close
+date: Sat, 20 Jan 2018 10:44:44 GMT
+```
 
-Start server with one worker only:
+UvReactor, EvReactor, LibeventReactor, NativeReactor
+
+### ReactPHP
+
+At this moment ReactPHP does not support keeping alive connection: 
+* https://github.com/reactphp/http/blob/master/README.md#response
+* https://github.com/reactphp/http/issues/39
+
+```text
+Connection: close
+```
+
+Server response w/o keep alive (154 byte)
+```text
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+X-Powered-By: React/alpha
+Date: Sat, 20 Jan 2018 10:43:06 GMT
+Content-Length: 13
+Connection: close
+```
+
+
+### HTTP benchmarking tool
+
+[wrk](https://github.com/torinaki/wrk/tree/lua-plot-report) version 4.0.2
+
+Testing settings:
+ * 1 thread
+ * 100 connections
+ * during 30 seconds
 ```bash
-cd ./aerys
-php -n -dzend.assertions=-1 ./vendor/bin/aerys -w 1 -c ./server.php --worker-args="-n"
-```
-
-Results:
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    10.90ms   18.47ms 425.74ms   98.90%
-    Req/Sec    10.71k     1.02k   12.09k    87.67%
-  Latency Distribution
-     50%    8.94ms
-     75%    9.19ms
-     90%   10.69ms
-     99%   39.13ms
-  319800 requests in 30.00s, 53.95MB read
-Requests/sec:  10658.39
-Transfer/sec:      1.80MB
-```
-
-Result with installed xdebug, but disabled in command line. 
-As you can see it significantly slows down the server. During benchmark testing
-zend_extension configuration line must be commented out.
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    12.67ms   41.88ms 610.45ms   98.48%
-    Req/Sec     3.76k   245.95     4.04k    89.00%
-  Latency Distribution
-     50%    7.78ms
-     75%    8.05ms
-     90%    8.71ms
-     99%  230.37ms
-  112109 requests in 30.01s, 18.91MB read
-  Socket errors: connect 0, read 3661, write 0, timeout 0
-Requests/sec:   3736.22
-Transfer/sec:    645.46KB
-```
-
-Start server without keeping connection alive:
-```bash
-cd ./aerys
-php -n -dzend.assertions=-1 ./vendor/bin/aerys -w 1 -c ./server-wo-keep-alive.php --worker-args="-n"
-```
-
-As you can see server performance significantly decreases. 
-Comparing with ReactPHP latency distribution is worse,
-but overall performance is same. 
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    35.98ms   68.99ms 705.30ms   96.94%
-    Req/Sec     3.41k     1.15k    5.30k    72.34%
-  Latency Distribution
-     50%   22.38ms
-     75%   24.32ms
-     90%   49.09ms
-     99%  509.17ms
-  16249 requests in 30.03s, 2.54MB read
-Requests/sec:    541.04
-Transfer/sec:     86.65KB
-
-```
-
-### Benchmark with LibeventReactor
-
-Start server:
-```bash
-cd ./aerys
-php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-event/event.so" ./vendor/bin/aerys -w 1 -c ./server.php  --worker-args="-n"
-```
-
-Results:
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    11.17ms   18.96ms 485.22ms   98.84%
-    Req/Sec    10.50k     1.01k   11.42k    87.33%
-  Latency Distribution
-     50%    9.07ms
-     75%    9.52ms
-     90%   10.93ms
-     99%   48.21ms
-  313558 requests in 30.01s, 52.89MB read
-Requests/sec:  10449.34
-Transfer/sec:      1.76MB
-```
-
-### Benchmark with EvReactor
-
-Start server:
-```bash
-cd ./aerys
-php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-ev/ev.so" ./vendor/bin/aerys -w 1 -c ./server.php  --worker-args="-n"
-```
-
-Results:
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    10.85ms   18.15ms 445.32ms   98.88%
-    Req/Sec    10.77k   704.05    12.18k    90.33%
-  Latency Distribution
-     50%    9.04ms
-     75%    9.29ms
-     90%    9.92ms
-     99%   41.32ms
-  321362 requests in 30.00s, 54.21MB read
-Requests/sec:  10710.55
-Transfer/sec:      1.81MB
-```
-
-### Benchmark with UvReactor
-
-Start server:
-```bash
-cd ./aerys
-php -n -dzend.assertions=-1 -dextension="/usr/local/opt/php70-uv/uv.so" ./vendor/bin/aerys -w 1 -c ./server.php  --worker-args="-n"
-```
-
-Results:
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    11.12ms   18.83ms 456.16ms   98.85%
-    Req/Sec    10.55k     0.95k   11.85k    87.33%
-  Latency Distribution
-     50%    9.09ms
-     75%    9.50ms
-     90%   10.67ms
-     99%   46.84ms
-  314828 requests in 30.00s, 53.11MB read
-Requests/sec:  10493.07
-Transfer/sec:      1.77MB
-```
-
-NodeJS
-======
-
-By default NodeJS keeping connections alive without limiting timeout and connections amount:
-```text
-Connection: keep-alive
-```
-
-### Benchmark with keep alive
-
-Start server:
-```bash
-cd ./nodejs
-node ./server.js
 wrk -t1 -c100 -d30s --latency http://127.0.0.1:8080/
 ```
-Results:
-```text
-Running 30s test @ http://127.0.0.1:8080/
-  1 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     7.23ms    1.26ms  56.01ms   95.84%
-    Req/Sec    13.95k     1.02k   16.50k    87.67%
-  Latency Distribution
-     50%    6.99ms
-     75%    7.44ms
-     90%    7.87ms
-     99%    9.63ms
-  416258 requests in 30.00s, 46.45MB read
-Requests/sec:  13873.65
-Transfer/sec:      1.55MB
-```
 
-Build and run benchmark
+Build Docker images
 =======================
 
 To build Docker images just run: 
@@ -328,9 +177,29 @@ To build Docker images just run:
 sh ./build.sh
 ```
 
-To run benchmark:
+Run benchmark
+=============
+
+To run benchmark you need installed Docker.
+Following command will fetch [latest image](https://hub.docker.com/r/dmitrybalabka/aerys-benchmark/) from Docker hub with build-in all needed software and start benchmark:
 ```bash
-docker run aerys-benchmark:php70
-docker run aerys-benchmark:php71
-docker run aerys-benchmark:php72jit
+docker run --ulimit nofile=30000:30000 dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}
 ```
+Replace `${DOCKER_PHP_VERSION}` with any [available image tag](https://hub.docker.com/r/dmitrybalabka/aerys-benchmark/tags/) (php71, php72, php72jit)
+
+
+Benchmark result
+================
+
+| Server (settings)                     | 50%           | 75%   | 90% | 99% |
+| -------------                         |:-------------:| -----:| ---:|---: |
+| ReactPHP (w/o keep-alive)             |               |       |     |     |
+| ReactPHP (w/o keep-alive + OPCache)   |               |       |     |     |
+| Aerys (w/o keep-alive)                |               |       |     |     |
+| Aerys (w/o keep-alive + OPCache)      |               |       |     |     |
+| Aerys (keep-alive + OPCache)          |               |       |     |     |
+| Aerys (keep-alive + OPCache + ev)     |               |       |     |     |
+| Aerys (keep-alive + OPCache + event)  |               |       |     |     |
+| Aerys (keep-alive + OPCache + uv)     |               |       |     |     |
+| NodeJS (keep-alive)                   |               |       |     |     |
+
