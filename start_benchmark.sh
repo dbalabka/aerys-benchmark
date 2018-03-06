@@ -65,7 +65,7 @@ start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache)" "${PHP_COMMAN
 start_benchmark "Benchmarking Aerys + Amp2 tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
+#start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
 start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
 start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND}"
 
