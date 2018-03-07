@@ -28,7 +28,7 @@ Comparing old version of Aerys and latest version of ReactPHP with non-keep-aliv
 
 ### Hardware
 
-TODO: use AWS
+<!--- TODO: use AWS --->
 
 ```text
 Hardware:
@@ -52,15 +52,28 @@ Used following PHP stable [supported](http://php.net/supported-versions.php) ver
 
 During benchmark we use default PHP settings by providing option `-n` that guarantee only required modules are loaded. 
 
-Native assertion framework is disabled with option `-dzend.assertions=-1`.
+Native assertion framework is disabled with option:
+```ini
+zend.assertions=-1
+```
 
 OpCache might provide additional byte code optimizations. 
-It is enabled for CLI via [opcache.enable-cli](http://php.net/manual/en/opcache.configuration.php#ini.opcache.enable-cli)
-with maximal optimization level (`opcache.optimization_level=0xffffffff`). 
+It is enabled for CLI with maximal optimization level:
+```ini
+opcache.enable=1
+opcache.enable_cli=1
+opcache.optimization_level=0xffffffff
+opcache.file_update_protection=0
+```
 
 Also used development version of PHP with JIT support based on branch from Zend Github repository:
 https://github.com/zendtech/php-src/tree/jit-dynasm/
-For benchmarking used [default JIT settings](https://github.com/zendtech/php-src/blob/jit-dynasm/ext/opcache/jit/zend_jit.h#L24).
+
+For benchmarking used [default JIT settings](https://github.com/zendtech/php-src/blob/jit-dynasm/ext/opcache/jit/zend_jit.h#L24)
+with following OPCache settings adjustments:
+```ini
+opcache.jit_buffer_size=32M
+```
 
 #### libuv
 
@@ -98,7 +111,7 @@ Date: Sat, 20 Jan 2018 10:48:03 GMT
 Connection: keep-alive
 ```
 
-TODO: mention about NodeJS JIT warmuping
+<!--- TODO: mention about NodeJS JIT warmuping --->
 
 ### Aryes
 
@@ -191,15 +204,20 @@ Replace `${DOCKER_PHP_VERSION}` with any [available image tag](https://hub.docke
 Benchmark result
 ================
 
-| Server (settings)                     | 50%           | 75%   | 90% | 99% |
-| -------------                         |:-------------:| -----:| ---:|---: |
-| ReactPHP (w/o keep-alive)             |               |       |     |     |
-| ReactPHP (w/o keep-alive + OPCache)   |               |       |     |     |
-| Aerys (w/o keep-alive)                |               |       |     |     |
-| Aerys (w/o keep-alive + OPCache)      |               |       |     |     |
-| Aerys (keep-alive + OPCache)          |               |       |     |     |
-| Aerys (keep-alive + OPCache + ev)     |               |       |     |     |
-| Aerys (keep-alive + OPCache + event)  |               |       |     |     |
-| Aerys (keep-alive + OPCache + uv)     |               |       |     |     |
-| NodeJS (keep-alive)                   |               |       |     |     |
+| Server            | Settings                            | 50%           | 75%   | 90% | 99% |
+| -------------     | ---------------                     |:-------------:| -----:| ---:|---: |
+| ReactPHP          | w/o keep-alive                      |               |       |     |     |
+| ReactPHP          | w/o keep-alive + OPCache            |               |       |     |     |
+| ReactPHP          | w/o keep-alive + OPCache + JIT      |               |       |     |     |
+| Aerys + Amp1      | w/o keep-alive                      |               |       |     |     |
+| Aerys + Amp1      | w/o keep-alive + OPCache            |               |       |     |     |
+| Aerys + Amp1      | w/o keep-alive + OPCache + JIT      |               |       |     |     |
+| Aerys + Amp1      | keep-alive + OPCache + JIT          |               |       |     |     |
+| Aerys + Amp2      | keep-alive + OPCache + JIT          |               |       |     |     |
+| Aerys + Amp2 tiny | keep-alive + OPCache + JIT          |               |       |     |     |
+| Aerys + Amp2      | keep-alive + OPCache                |               |       |     |     |
+| Aerys + Amp2      | keep-alive + OPCache + JIT + ev     |               |       |     |     |
+| Aerys + Amp2      | keep-alive + OPCache + JIT + event  |               |       |     |     |
+| Aerys + Amp2      | keep-alive + OPCache + JIT + uv     |               |       |     |     |
+| NodeJS            | keep-alive + w/o timeout            |               |       |     |     |
 
