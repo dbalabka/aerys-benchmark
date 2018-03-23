@@ -1,39 +1,58 @@
 <?php
 
-use Aerys\Host;
-use function Aerys\initServer;
+use Amp\Http\Server\RequestHandler\CallableRequestHandler;
+use Amp\Http\Server\Server;
+use Amp\Http\Server\Request;
+use Amp\Http\Server\Response;
+use Amp\Http\Status;
+use Amp\Socket;
 use Psr\Log\NullLogger;
+use Amp\Http\Server\Options;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$options = [
+$options = (new Options())
     // help avoid connection errors during benchmark
-    'connectionsPerIP' => 100,
+    ->withConnectionsPerIpLimit(100)
     // to emulate NodeJS behavior
-    'connectionTimeout' => 10000,
-    'maxRequestsPerConnection' => PHP_INT_MAX,
-];
+    ->withConnectionTimeout(10000)
+    // TODO: options do not support this param?
+//    ->withMaxRequestsPerConnection(PHP_INT_MAX)
+;
 
-$hosts = [
-    (new Host())
-        ->name('localhost')
-        ->expose('0.0.0.0', 8080)
-        ->use(function(Aerys\Request $req, Aerys\Response $resp) {
-            if ($req->getUri() === '/') {
-                $data = 'Hello world!';
-                $status = 200;
-            } else {
-                $data = 'Not Found';
-                $status = 400;
-            }
-            $resp->addHeader('Content-Type', 'text/plain; charset=utf-8');
-            $resp->addHeader('X-Powered-By', 'AerysServer');
-            $resp->setStatus($status);
-            $resp->end($data);
-        }),
+$sockets = [
+    Socket\listen("0.0.0.0:8080"),
 ];
-$server = initServer(new NullLogger(), $hosts, $options);
+$server = new Server(
+    $sockets,
+    new CallableRequestHandler(function (Request $request) {
+        if ($request->getUri()) {
+            $data = 'Hello world!';
+            $status = Status::OK;
+        } else {
+            $data = 'Not Found';
+            $status = Status::NOT_FOUND;
+        }
+        return new Response(
+            $status,
+            [
+                'Content-Type' => 'text/plain; charset=utf-8',
+                'X-Powered-By' => 'AerysServer',
+            ],
+            $data
+        );
+    }),
+    new NullLogger(),
+    $options
+);
 
 \Amp\Loop::run(function () use ($server) {
     yield $server->start();
+
+    // Stop the server gracefully when SIGINT is received.
+    // This is technically optional, but it is best to call Server::stop().
+    Amp\Loop::onSignal(\SIGINT, function (string $watcherId) use ($server) {
+        Amp\Loop::cancel($watcherId);
+        yield $server->stop();
+    });
 });

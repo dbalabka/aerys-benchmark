@@ -1,6 +1,7 @@
 {
     "require": {
-        "amphp/aerys": "^0.7"
+        "amphp/http-server": "^0.8",
+        "amphp/cluster": "dev-master"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

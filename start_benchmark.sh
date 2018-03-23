@@ -4,7 +4,9 @@ PHP_COMMAND="php -n"
 NODEJS_COMMAND='node'
 
 AERYS1_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
-AERYS_COMMAND="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server.php --worker-args=\"-n\""
+# TODO: update with after server.php will be updated till latest cluster version
+#AERYS_COMMAND="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server.php --worker-args=\"-n\""
+AERYS_COMMAND="./aerys2/server-tiny.php"
 AERYS_TINY_COMMAND="./aerys2/server-tiny.php"
 AERYS1_WO_KEEP_ALIVE_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-keep-alive.php --worker-args=\"-n\""
 REACTPHP_COMMAND="./react-php/server.php"
