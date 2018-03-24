@@ -37,4 +37,11 @@ $server = initServer(new NullLogger(), $hosts, $options);
 
 \Amp\Loop::run(function () use ($server) {
     yield $server->start();
+
+    // Stop the server gracefully when SIGINT is received.
+    // This is technically optional, but it is best to call Server::stop().
+    Amp\Loop::onSignal(\SIGINT, function (string $watcherId) use ($server) {
+        Amp\Loop::cancel($watcherId);
+        yield $server->stop();
+    });
 });
