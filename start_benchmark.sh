@@ -3,13 +3,19 @@
 PHP_COMMAND="php -n"
 NODEJS_COMMAND='node'
 
-AERYS1_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server.php --worker-args=\"-n\""
+# Amp HTTP server
+AERYS1_COMMAND="./aerys/v0.5.0/vendor/bin/aerys -w 1 -c ./aerys/v0.5.0/server.php --worker-args=\"-n\""
+AERYS1_WO_KEEP_ALIVE_COMMAND="./aerys/v0.5.0/vendor/bin/aerys -w 1 -c ./aerys/v0.5.0/server-wo-keep-alive.php --worker-args=\"-n\""
 # TODO: update with after server.php will be updated till latest cluster version
 #AERYS_COMMAND="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server.php --worker-args=\"-n\""
-AERYS_COMMAND="./aerys2/server-tiny.php"
-AERYS_TINY_COMMAND="./aerys2/server-tiny.php"
-AERYS1_WO_KEEP_ALIVE_COMMAND="./aerys/vendor/bin/aerys -w 1 -c ./aerys/server-wo-keep-alive.php --worker-args=\"-n\""
+AERYS_COMMAND="./aerys/version/server-tiny.php"
+AERYS_TINY_COMMAND="./aerys/version/server-tiny.php"
+AERYS_CURRENT_VERSION="v0.8"
+
+# ReactPHP server script
 REACTPHP_COMMAND="./react-php/server.php"
+
+# NodeJS server script
 NODEJS_SERVER_COMMAND="./nodejs/server.js"
 
 URL="http://localhost:8080/"
@@ -58,20 +64,22 @@ start_benchmark "Benchmarking ReactPHP (w/o keep-alive + OPCache)" "${PHP_COMMAN
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking ReactPHP (w/o keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${REACTPHP_COMMAND}"
 
-start_benchmark "Benchmarking Aerys + Amp1 (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp1 (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys v0.5.0 (w/o keep-alive)" "${PHP_COMMAND} -c ./php/default.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys v0.5.0 (w/o keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
-&& start_benchmark "Benchmarking Aerys + Amp1 (w/o keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp1 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp2 tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND}"
+&& start_benchmark "Benchmarking Aerys v0.5.0 (w/o keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS1_WO_KEEP_ALIVE_COMMAND}"
+start_benchmark "Benchmarking Aerys v0.5.0 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_COMMAND}"
+start_benchmark "Benchmarking Aerys v0.7.4 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND//version/v0.7.4}"
+start_benchmark "Benchmarking Aerys v0.7.4 tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND//version/v0.7.4}"
+start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
-&& start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND}"
+&& start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 # TODO: Aerys doesn't work with EV extension on PHP 7.3
 php -v | egrep -q "^PHP 7.(1|2)" \
-&& start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND}"
-start_benchmark "Benchmarking Aerys + Amp2 (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND}"
+&& start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"
