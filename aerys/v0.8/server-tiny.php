@@ -16,6 +16,8 @@ $options = (new Options())
     ->withConnectionsPerIpLimit(100)
     // to emulate NodeJS behavior
     ->withConnectionTimeout(10000)
+    ->withoutCompression()
+    ->withoutHttp2Upgrade()
     // TODO: options do not support this param?
 //    ->withMaxRequestsPerConnection(PHP_INT_MAX)
 ;

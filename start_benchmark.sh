@@ -71,6 +71,8 @@ php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 start_benchmark "Benchmarking Aerys v0.5.0 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS1_COMMAND}"
 start_benchmark "Benchmarking Aerys v0.7.4 (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND//version/v0.7.4}"
 start_benchmark "Benchmarking Aerys v0.7.4 tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND//version/v0.7.4}"
+php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
+&& start_benchmark "Benchmarking Aerys v0.7.4 (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND//version/v0.7.4}"
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
