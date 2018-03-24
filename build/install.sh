@@ -17,6 +17,9 @@ apt-get update \
 && git clone https://github.com/libevent/libevent.git && cd libevent && git checkout release-2.1.8-stable \
 && sh autogen.sh && ./configure && make `#&& make verify` \
 && make install && cd .. \
+&& docker-php-ext-configure pcntl \
+&& docker-php-ext-install pcntl \
+&& docker-php-ext-enable pcntl \
 && docker-php-ext-configure intl \
 && docker-php-ext-install intl \
 && docker-php-ext-enable intl \
