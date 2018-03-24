@@ -1,0 +1,36 @@
+language: php
+
+dist: trusty
+
+sudo: required
+
+services:
+  - docker
+
+matrix:
+    include:
+        -
+            env:
+                - DOCKER_PHP_VERSION="php71"
+        -
+            env:
+                - DOCKER_PHP_VERSION="php72"
+        -
+            env:
+                - DOCKER_PHP_VERSION="php72jit"
+
+before_install:
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    - sudo apt-get update
+    - sudo apt-get -y install docker-ce
+    - docker build -t "dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}" -f "./build/${DOCKER_PHP_VERSION}/Dockerfile" .
+
+script:
+    - docker run --ulimit nofile=30000:30000 dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "docker-phpjit-integration" ]; then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push dmitrybalabka/aerys-benchmark;
+    fi

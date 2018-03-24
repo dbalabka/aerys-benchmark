@@ -1,7 +1,7 @@
-const http = require('http');
+var http = require('http');
 
-const srv = http.createServer( (req, res) => {
-  let data, status;
+var srv = http.createServer(function (req, res) {
+  var data, status;
   if(req.url === '/') {
     data = 'Hello world!';
     status = 200;
@@ -10,10 +10,12 @@ const srv = http.createServer( (req, res) => {
     status = 404;
   }
   res.writeHead(status, {
-    'Content-Type': 'text/plain; encoding=utf-8',
-    'Content-Length': data.length});
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Content-Length': data.length,
+      'X-Powered-By': 'Node Server',
+      'Keep-Alive': 'timeout=10000'
+  });
   res.end(data);
 });
-
 
 srv.listen(8080, '0.0.0.0');

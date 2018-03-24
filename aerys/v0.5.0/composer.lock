@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c14fd57c27301b3de17ab1ab5cc4736b",
-    "content-hash": "7cd853579ff2f8f7438a0400e80b774c",
+    "hash": "a04ebb45b28d402542b90f2473d5140f",
+    "content-hash": "28c8700236f0e6f41eab31625c2d5383",
     "packages": [
         {
             "name": "amphp/aerys",
-            "version": "v0.4.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/aerys.git",
-                "reference": "d19301498f343393a4d9b14973e3389a7c3381c0"
+                "reference": "d1b0fd1e61dc1d3cf707d93acf556f7ec5196271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/aerys/zipball/d19301498f343393a4d9b14973e3389a7c3381c0",
-                "reference": "d19301498f343393a4d9b14973e3389a7c3381c0",
+                "url": "https://api.github.com/repos/amphp/aerys/zipball/d1b0fd1e61dc1d3cf707d93acf556f7ec5196271",
+                "reference": "d1b0fd1e61dc1d3cf707d93acf556f7ec5196271",
                 "shasum": ""
             },
             "require": {
@@ -85,20 +85,20 @@
                 "server",
                 "websocket"
             ],
-            "time": "2017-02-27 13:32:41"
+            "time": "2017-05-13 23:38:08"
         },
         {
             "name": "amphp/amp",
-            "version": "v1.2.2",
+            "version": "v1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "4f2161da5f68f274f116985635aea63b5c0f54d2"
+                "reference": "ba8335a3296a499a655d4ea18510484ee3e1310a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/4f2161da5f68f274f116985635aea63b5c0f54d2",
-                "reference": "4f2161da5f68f274f116985635aea63b5c0f54d2",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/ba8335a3296a499a655d4ea18510484ee3e1310a",
+                "reference": "ba8335a3296a499a655d4ea18510484ee3e1310a",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2016-05-12 12:54:59"
+            "time": "2016-09-04 12:46:12"
         },
         {
             "name": "amphp/cache",
@@ -587,7 +587,7 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
@@ -634,7 +634,7 @@
         },
         {
             "name": "seld/cli-prompt",
-            "version": "1.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/cli-prompt.git",
@@ -683,8 +683,10 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "amphp/aerys": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
