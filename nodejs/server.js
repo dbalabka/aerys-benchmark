@@ -12,7 +12,8 @@ var srv = http.createServer(function (req, res) {
   res.writeHead(status, {
       'Content-Type': 'text/plain; charset=utf-8',
       'Content-Length': data.length,
-      'X-Powered-By': 'Node Server'
+      'X-Powered-By': 'Node Server',
+      'Keep-Alive': 'timeout=10000'
   });
   res.end(data);
 });

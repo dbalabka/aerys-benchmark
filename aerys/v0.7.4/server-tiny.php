@@ -28,6 +28,7 @@ $hosts = [
             }
             $resp->addHeader('Content-Type', 'text/plain; charset=utf-8');
             $resp->addHeader('X-Powered-By', 'AerysServer');
+            $resp->addHeader('Connection', 'keep-alive');
             $resp->setStatus($status);
             $resp->end($data);
         }),
