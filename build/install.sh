@@ -5,7 +5,7 @@
 #
 
 apt-get update \
-&& apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg -y \
+&& apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev -y \
 && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 && apt-get install nodejs -y \
 && git clone https://github.com/torinaki/wrk.git && cd wrk && git checkout lua-plot-report \
@@ -17,10 +17,13 @@ apt-get update \
 && git clone https://github.com/libevent/libevent.git && cd libevent && git checkout release-2.1.8-stable \
 && sh autogen.sh && ./configure && make `#&& make verify` \
 && make install && cd .. \
+&& docker-php-ext-configure intl \
+&& docker-php-ext-install intl \
+&& docker-php-ext-enable intl \
 && docker-php-ext-install sockets \
 && docker-php-source extract \
 && pecl channel-update pecl.php.net \
-&& printf "\n\n\n\n\n\n\n" | pecl install ev-1.0.4 event-2.3.0 intl \
+&& printf "\n\n\n\n\n\n\n" | pecl install ev-1.0.4 event-2.3.0 \
 && git clone https://github.com/bwoebi/php-uv.git && cd ./php-uv \
 && phpize && ./configure && make && make install && cd .. && rm -rf ./php-uv \
 && docker-php-source delete \
