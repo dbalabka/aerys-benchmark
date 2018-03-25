@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcaf53d2317ece9dd77d376b3006d8ef",
+    "content-hash": "90d90a92d7671bfdd3046926cccbd9a2",
     "packages": [
         {
             "name": "amphp/amp",
@@ -505,7 +505,7 @@
         },
         {
             "name": "amphp/http-server",
-            "version": "dev-master",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/http-server.git",
@@ -1567,17 +1567,9 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [
-        {
-            "alias": "0.8.*-dev",
-            "alias_normalized": "0.8.9999999.9999999-dev",
-            "version": "9999999-dev",
-            "package": "amphp/http-server"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "amphp/http-server": 20,
         "amphp/cluster": 20
     },
     "prefer-stable": true,
