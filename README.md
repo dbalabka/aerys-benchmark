@@ -113,7 +113,7 @@ Connection: keep-alive
 
 <!--- TODO: mention about NodeJS JIT warmuping --->
 
-### Aryes
+### Aerys
 
 To avoid connections rejections Aerys must be configured with higher amount of simultaneous
 connections per one IP address:
