@@ -39,7 +39,7 @@ function start_benchmark {
     curl -I $URL || { printf "${WARNING}Failed to connect to server!${END}\n"; exit 1; }
 
     printf "${INFO}Run benchmark...${END}\n"
-    ./bin/wrk -t1 -c100 -d30s --latency ${URL} || { printf "${WARNING}Failed to start benchmark!${END}\n"; exit 1; }
+    wrk -t1 -c100 -d30s --latency ${URL} || { printf "${WARNING}Failed to start benchmark!${END}\n"; exit 1; }
 
     printf "\n\n${INFO}Stoping server...${END}\n"
     killall -9 php node

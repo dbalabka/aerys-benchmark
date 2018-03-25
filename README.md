@@ -200,6 +200,15 @@ docker run --ulimit nofile=30000:30000 dmitrybalabka/aerys-benchmark:${DOCKER_PH
 ```
 Replace `${DOCKER_PHP_VERSION}` with any [available image tag](https://hub.docker.com/r/dmitrybalabka/aerys-benchmark/tags/) (php71, php72, php72jit)
 
+## Run local copy of benchmark in docker
+
+```bash
+git clone git@github.com:torinaki/aerys-benchmark.git
+cd aerys-benchmark
+sh ./build/install-local.sh
+docker run -v "`pwd`:/app" dmitrybalabka/aerys-benchmark:php71
+```
+
 
 Benchmark result
 ================
