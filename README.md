@@ -7,7 +7,9 @@ About
 
 The main goal of this benchmark report is to investigate state of PHP native 
 possibilities to provide non-blocking HTTP server implementation. 
-This report is focused on already existing solution [Aerys](https://github.com/amphp/aerys).
+This report is focused on already existing solution 
+[Amphp HTTP server](https://github.com/amphp/http-server) 
+(aka [Aerys](https://github.com/amphp/aerys)).
 
 
 This benchmark report is inspired by: https://github.com/squeaky-pl/japronto
@@ -22,13 +24,13 @@ has almost same performance as reactors based on ev, libevent or php-uv extensio
 It is hard to compare ReactPHP with other servers implementations, because it doesn't support keeping connections alive.
 Comparing old version of Aerys and latest version of ReactPHP with non-keep-alive we can see that Aerys performing better.
 
-*Latest update: 19.01.2017*
+*Latest update: 25.03.2018*
 
 ## Testing environment
 
 ### Hardware
 
-<!--- TODO: use AWS --->
+<!--- TODO: use AWS c4.2xlarge instance --->
 
 ```text
 Hardware:
@@ -48,7 +50,7 @@ Hardware:
 
 ### PHP
 
-Used following PHP stable [supported](http://php.net/supported-versions.php) versions `^7.1`, `^7.2`. 
+Used following PHP stable [supported](http://php.net/supported-versions.php) versions `^7.1`, `^7.2`, `7.3-dev + jit`. 
 
 During benchmark we use default PHP settings by providing option `-n` that guarantee only required modules are loaded. 
 
@@ -66,10 +68,10 @@ opcache.optimization_level=0xffffffff
 opcache.file_update_protection=0
 ```
 
-Also used development version of PHP with JIT support based on branch from Zend Github repository:
+Development version of PHP with JIT support based on branch from Zend Github repository:
 https://github.com/zendtech/php-src/tree/jit-dynasm/
 
-For benchmarking used [default JIT settings](https://github.com/zendtech/php-src/blob/jit-dynasm/ext/opcache/jit/zend_jit.h#L24)
+For benchmarking used [default JIT settings](https://github.com/zendtech/php-src/blob/jit-dynasm/ext/opcache/jit/zend_jit.h#L52)
 with following OPCache settings adjustments:
 ```ini
 opcache.jit_buffer_size=32M
@@ -77,17 +79,17 @@ opcache.jit_buffer_size=32M
 
 #### libuv
 
-Library version: [v1.19.0](https://github.com/libuv/libuv)
-Extension version: [0.2.2](https://pecl.php.net/package/uv)
+Library version: [v1.19.0](https://github.com/libuv/libuv)  
+Extension version: [0.2.2](https://pecl.php.net/package/uv) 
 
 #### libevent
 
-Library version: [2.1.8](https://github.com/libevent/libevent)
+Library version: [2.1.8](https://github.com/libevent/libevent)  
 Extension version: [2.3.0](https://pecl.php.net/package/event)
 
 #### ev
 
-Library version: [???](https://github.com/enki/libev)
+Library version: [???](https://github.com/enki/libev)  
 Extension version: [1.0.4](https://pecl.php.net/package/ev)
 
 
@@ -101,41 +103,45 @@ By default NodeJS keeping connections alive without limiting timeout and connect
 Connection: keep-alive
 ```
 
-Server response with keep alive (159 byte)
+Server response with keep alive (185 byte)
 ```text
 HTTP/1.1 200 OK
 Content-Type: text/plain; charset=utf-8
 Content-Length: 12
 X-Powered-By: Node Server
-Date: Sat, 20 Jan 2018 10:48:03 GMT
+Keep-Alive: timeout=10000
+Date: Sun, 25 Mar 2018 18:38:33 GMT
 Connection: keep-alive
 ```
 
 <!--- TODO: mention about NodeJS JIT warmuping --->
 
-### Aerys
+### Amphp HTTP server (aka Ayres)
 
-To avoid connections rejections Aerys must be configured with higher amount of simultaneous
+To avoid connections rejections HTTP server must be configured with higher amount of simultaneous
 connections per one IP address:
-```php
-const AERYS_OPTIONS = [
-    'connectionsPerIP' => 100,
-];
+```txt
+connectionsPerIP = 100
 ```
 
-By default Aerys keeping connections alive with following settings: 
+By default HTTP server keeping connections alive with following settings: 
 ```text
 keep-alive: timeout=6, max=999
 ```
+We have to simulate similar keep-alive behavior with NodeJS so we set:
+```txt
+connectionTimeout = 10000
+``` 
 
-Server response with keep alive (162 byte):
+Server response with keep alive (185 byte):
 ```text
 HTTP/1.1 200 OK
 content-type: text/plain; charset=utf-8
 x-powered-by: AerysServer
+connection: keep-alive
 content-length: 12
 keep-alive: timeout=10000
-date: Sat, 20 Jan 2018 10:45:51 GMT
+date: Sun, 25 Mar 2018 18:35:14 GMT
 ```
 w/o keep alive (154 byte):
 ```text
@@ -196,6 +202,7 @@ Run benchmark
 To run benchmark you need installed Docker.
 Following command will fetch [latest image](https://hub.docker.com/r/dmitrybalabka/aerys-benchmark/) from Docker hub with build-in all needed software and start benchmark:
 ```bash
+docker pull dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}
 docker run --ulimit nofile=30000:30000 dmitrybalabka/aerys-benchmark:${DOCKER_PHP_VERSION}
 ```
 Replace `${DOCKER_PHP_VERSION}` with any [available image tag](https://hub.docker.com/r/dmitrybalabka/aerys-benchmark/tags/) (php71, php72, php72jit)
@@ -206,7 +213,8 @@ Replace `${DOCKER_PHP_VERSION}` with any [available image tag](https://hub.docke
 git clone git@github.com:torinaki/aerys-benchmark.git
 cd aerys-benchmark
 sh ./build/install-local.sh
-docker run -v "`pwd`:/app" dmitrybalabka/aerys-benchmark:php71
+docker pull dmitrybalabka/aerys-benchmark:php71
+docker run --ulimit nofile=30000:30000 -v "`pwd`:/app" dmitrybalabka/aerys-benchmark:php71
 ```
 
 
