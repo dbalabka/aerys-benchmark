@@ -25,7 +25,7 @@ apt-get update \
 && docker-php-ext-install sockets \
 && docker-php-source extract \
 && pecl channel-update pecl.php.net \
-&& printf "\n\n\n\n\n\n\n" | pecl install ev-1.0.4 event-2.3.0 \
+&& printf "\n\n\n\n\n\n\n\n\n\n\n\n\n\n" | pecl install ev-1.0.4 event-2.3.0 swoole-4.2.1 \
 && git clone https://github.com/bwoebi/php-uv.git && cd ./php-uv \
 && phpize && ./configure && make && make install && cd .. && rm -rf ./php-uv \
 && docker-php-source delete \

@@ -2,3 +2,4 @@ composer.phar
 /react-php/vendor/
 /aerys/v*/vendor/
 /bin/wrk
+/swoole/ide-helper

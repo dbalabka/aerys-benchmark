@@ -12,6 +12,8 @@ AERYS_COMMAND="./aerys/version/server-tiny.php"
 AERYS_TINY_COMMAND="./aerys/version/server-tiny.php"
 AERYS_CURRENT_VERSION="v0.8"
 
+SWOOLE_COMMAND="./swoole/server.php"
+
 # ReactPHP server script
 REACTPHP_COMMAND="./react-php/server.php"
 
@@ -82,6 +84,9 @@ php -v | egrep -q "^PHP 7.(1|2)" \
 && start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+
+# Benchmark swoole
+start_benchmark "Benchmarking Swoole (keep-alive + OPCache + swoole)" "${PHP_COMMAND} -c ./php/default-opcache-swoole.ini ${SWOOLE_COMMAND}"
 
 # Benchmarking NodeJS
 printf "\nNodeJS version:\n"
