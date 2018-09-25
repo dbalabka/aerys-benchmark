@@ -9,7 +9,12 @@
 use Swoole\Http\{Server, Request, Response};
 
 $server = new Server('0.0.0.0', 8080);
-
+$server->set(array(
+    'worker_num' => 1,
+//    'task_worker_num' => 1,
+//    'max_request' => 3,
+//    'dispatch_mode'=>3,
+));
 $server->on('request', function(Request $request, Response $response) {
     if ($request->server['request_uri'] === '/') {
         $response->status(200);
