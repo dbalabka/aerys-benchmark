@@ -9,9 +9,11 @@
 use Swoole\Http\{Server, Request, Response};
 
 $server = new Server('0.0.0.0', 8080);
+// API docs: https://rawgit.com/tchiotludo/swoole-ide-helper/english/docs/classes/swoole_server.html#method_set
 $server->set(array(
     'worker_num' => 1,
-//    'task_worker_num' => 1,
+    'reactor_num' => 1,
+//    'task_worker_num' => 0,
 //    'max_request' => 3,
 //    'dispatch_mode'=>3,
 ));
