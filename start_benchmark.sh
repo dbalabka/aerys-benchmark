@@ -10,6 +10,7 @@ AERYS1_WO_KEEP_ALIVE_COMMAND="./aerys/v0.5.0/vendor/bin/aerys -w 1 -c ./aerys/v0
 #AERYS_COMMAND="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server.php --worker-args=\"-n\""
 AERYS_COMMAND="./aerys/version/server-tiny.php"
 AERYS_TINY_COMMAND="./aerys/version/server-tiny.php"
+AERYS_SUPER_TINY_COMMAND="./aerys/version/server-super-tiny.php"
 AERYS_CURRENT_VERSION="v0.8"
 
 SWOOLE_COMMAND="./swoole/server.php"
@@ -77,6 +78,7 @@ php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Aerys v0.7.4 (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND//version/v0.7.4}"
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_TINY_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} super tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AERYS_SUPER_TINY_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 # TODO: Aerys doesn't work with EV extension on PHP 7.3
