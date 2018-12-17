@@ -52,7 +52,7 @@ function checkPhpConfiguration {
     printf "\n${INFO}Check PHP configuration: ${END}"
     eval "${PHP_COMMAND} -c ./php/default.ini -i | grep 'zend.assertions => -1 => -1' 1>/dev/null" || { printf "${WARNING}Zend assertion isn't disabled!${END}\n"; exit 1; }
     eval "${PHP_COMMAND} -c ./php/default-opcache.ini -i | grep 'opcache.enable => On => On' 1>/dev/null" || { printf "${WARNING}OpCache isn't loaded!${END}\n"; exit 1; }
-    eval "${PHP_COMMAND} -c ./php/default-opcache-ev.ini -i | grep  '^ev$' 1>/dev/null" || { printf "${WARNING}EV isn't loaded!${END}\n"; exit 1; }
+#    eval "${PHP_COMMAND} -c ./php/default-opcache-ev.ini -i | grep  '^ev$' 1>/dev/null" || { printf "${WARNING}EV isn't loaded!${END}\n"; exit 1; }
     eval "${PHP_COMMAND} -c ./php/default-opcache-event.ini -i | grep  '^event$' 1>/dev/null" || { printf "${WARNING}Libevent isn't enabled!${END}\n"; exit 1; }
     eval "${PHP_COMMAND} -c ./php/default-opcache-uv.ini -i | grep  '^uv$' 1>/dev/null" || { printf "${WARNING}Libuv isn't enabled!${END}\n"; exit 1; }
     printf "OK\n"
