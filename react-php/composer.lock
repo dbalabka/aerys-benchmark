@@ -229,16 +229,16 @@
         },
         {
             "name": "react/http",
-            "version": "v0.8.1",
+            "version": "v0.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/http.git",
-                "reference": "92deba861d5a1320584450cfa61622a2969b00ef"
+                "reference": "f8bcdab2dc0ecd94f35ff9657a263028b96f0c46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/http/zipball/92deba861d5a1320584450cfa61622a2969b00ef",
-                "reference": "92deba861d5a1320584450cfa61622a2969b00ef",
+                "url": "https://api.github.com/repos/reactphp/http/zipball/f8bcdab2dc0ecd94f35ff9657a263028b96f0c46",
+                "reference": "f8bcdab2dc0ecd94f35ff9657a263028b96f0c46",
                 "shasum": ""
             },
             "require": {
@@ -273,7 +273,7 @@
                 "server",
                 "streaming"
             ],
-            "time": "2018-01-05T15:30:50+00:00"
+            "time": "2018-04-11T15:03:27+00:00"
         },
         {
             "name": "react/promise",

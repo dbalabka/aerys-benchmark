@@ -191,20 +191,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/cluster.git",
-                "reference": "54f3d336769c2028b7afb7384937d15155c822ab"
+                "reference": "7d73ef57fe06784fec9e118526824446f9213f09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/cluster/zipball/54f3d336769c2028b7afb7384937d15155c822ab",
-                "reference": "54f3d336769c2028b7afb7384937d15155c822ab",
+                "url": "https://api.github.com/repos/amphp/cluster/zipball/7d73ef57fe06784fec9e118526824446f9213f09",
+                "reference": "7d73ef57fe06784fec9e118526824446f9213f09",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2",
-                "amphp/byte-stream": "^1.3",
+                "amphp/byte-stream": "^1.5",
                 "amphp/file": "^0.3",
                 "amphp/log": "^1",
-                "amphp/parallel": "^0.2.4",
+                "amphp/parallel": "^1",
                 "amphp/socket": "^0.10.8",
                 "league/climate": "^3",
                 "monolog/monolog": "^1.23",
