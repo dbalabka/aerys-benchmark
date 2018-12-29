@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "amphp/amp",
-            "version": "v2.0.7",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "d561cc9736bc18dd94a2fc9cdae98b616bd92c43"
+                "reference": "7075ef7d74dbd32626bfd31c976b23055c3ade6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/d561cc9736bc18dd94a2fc9cdae98b616bd92c43",
-                "reference": "d561cc9736bc18dd94a2fc9cdae98b616bd92c43",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/7075ef7d74dbd32626bfd31c976b23055c3ade6a",
+                "reference": "7075ef7d74dbd32626bfd31c976b23055c3ade6a",
                 "shasum": ""
             },
             "require": {
@@ -80,28 +80,30 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2018-04-30T20:49:57+00:00"
+            "time": "2018-12-11T10:31:37+00:00"
         },
         {
             "name": "amphp/byte-stream",
-            "version": "v1.3.1",
+            "version": "v1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/byte-stream.git",
-                "reference": "1b75b122e6f069e7d102eef065dc192119d99ca7"
+                "reference": "6bbfcb6f47e92577e739586ba0c87e867be70a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/byte-stream/zipball/1b75b122e6f069e7d102eef065dc192119d99ca7",
-                "reference": "1b75b122e6f069e7d102eef065dc192119d99ca7",
+                "url": "https://api.github.com/repos/amphp/byte-stream/zipball/6bbfcb6f47e92577e739586ba0c87e867be70a23",
+                "reference": "6bbfcb6f47e92577e739586ba0c87e867be70a23",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2"
             },
             "require-dev": {
+                "amphp/php-cs-fixer-config": "dev-master",
                 "amphp/phpunit-util": "^1",
                 "friendsofphp/php-cs-fixer": "^2.3",
+                "infection/infection": "^0.9.3",
                 "phpunit/phpunit": "^6"
             },
             "type": "library",
@@ -137,7 +139,7 @@
                 "non-blocking",
                 "stream"
             ],
-            "time": "2018-04-04T05:33:09+00:00"
+            "time": "2018-12-27T18:08:06+00:00"
         },
         {
             "name": "amphp/cache",
@@ -212,8 +214,8 @@
                 "psr/log": "^1"
             },
             "require-dev": {
+                "amphp/php-cs-fixer-config": "dev-master",
                 "amphp/phpunit-util": "^1",
-                "friendsofphp/php-cs-fixer": "^2.3",
                 "infection/infection": "^0.7.1",
                 "phpunit/phpunit": "^6"
             },
@@ -264,7 +266,7 @@
                 "non-blocking",
                 "parallel"
             ],
-            "time": "2018-05-03T01:41:26+00:00"
+            "time": "2018-11-07T05:07:50+00:00"
         },
         {
             "name": "amphp/dns",
@@ -346,26 +348,26 @@
         },
         {
             "name": "amphp/file",
-            "version": "v0.3.1",
+            "version": "v0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/file.git",
-                "reference": "7bb476921b67cd7da361cf0d6bf9d80ec130421d"
+                "reference": "25d8ef6e67b95d5249e0af7a80adce77657d16bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/file/zipball/7bb476921b67cd7da361cf0d6bf9d80ec130421d",
-                "reference": "7bb476921b67cd7da361cf0d6bf9d80ec130421d",
+                "url": "https://api.github.com/repos/amphp/file/zipball/25d8ef6e67b95d5249e0af7a80adce77657d16bb",
+                "reference": "25d8ef6e67b95d5249e0af7a80adce77657d16bb",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2",
                 "amphp/byte-stream": "^1",
-                "amphp/parallel": "^0.2"
+                "amphp/parallel": "^1"
             },
             "require-dev": {
+                "amphp/php-cs-fixer-config": "dev-master",
                 "amphp/phpunit-util": "^1",
-                "friendsofphp/php-cs-fixer": "^2.3",
                 "phpunit/phpunit": "^6"
             },
             "type": "library",
@@ -408,20 +410,20 @@
                 "non-blocking",
                 "static"
             ],
-            "time": "2018-03-17T12:24:35+00:00"
+            "time": "2018-10-28T14:38:35+00:00"
         },
         {
             "name": "amphp/hpack",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/hpack.git",
-                "reference": "f2b2dbfb5e6221bc9fe9350512e4971959b10ae6"
+                "reference": "f6f95e015baa54aa3c0fdbe3ad142fbd18a835e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/hpack/zipball/f2b2dbfb5e6221bc9fe9350512e4971959b10ae6",
-                "reference": "f2b2dbfb5e6221bc9fe9350512e4971959b10ae6",
+                "url": "https://api.github.com/repos/amphp/hpack/zipball/f6f95e015baa54aa3c0fdbe3ad142fbd18a835e6",
+                "reference": "f6f95e015baa54aa3c0fdbe3ad142fbd18a835e6",
                 "shasum": ""
             },
             "require": {
@@ -466,7 +468,7 @@
                 "hpack",
                 "http-2"
             ],
-            "time": "2018-03-13T14:40:49+00:00"
+            "time": "2018-03-16T14:31:41+00:00"
         },
         {
             "name": "amphp/http",
@@ -649,28 +651,28 @@
         },
         {
             "name": "amphp/parallel",
-            "version": "v0.2.5",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/parallel.git",
-                "reference": "732694688461936bec02c0ccf020dfee10c4f7ee"
+                "reference": "4c3c93e46a0108f04990352b0d084ded2ec2cc17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/parallel/zipball/732694688461936bec02c0ccf020dfee10c4f7ee",
-                "reference": "732694688461936bec02c0ccf020dfee10c4f7ee",
+                "url": "https://api.github.com/repos/amphp/parallel/zipball/4c3c93e46a0108f04990352b0d084ded2ec2cc17",
+                "reference": "4c3c93e46a0108f04990352b0d084ded2ec2cc17",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2",
-                "amphp/byte-stream": "^1.2",
+                "amphp/byte-stream": "^1.5",
                 "amphp/parser": "^1",
-                "amphp/process": "^0.2 || ^0.3",
+                "amphp/process": "^1",
                 "amphp/sync": "^1.0.1"
             },
             "require-dev": {
+                "amphp/php-cs-fixer-config": "dev-master",
                 "amphp/phpunit-util": "^1",
-                "friendsofphp/php-cs-fixer": "^2.3",
                 "phpunit/phpunit": "^6"
             },
             "suggest": {
@@ -708,7 +710,7 @@
                 "multi-processing",
                 "multi-threading"
             ],
-            "time": "2018-03-21T14:37:51+00:00"
+            "time": "2018-10-27T16:19:01+00:00"
         },
         {
             "name": "amphp/parser",
@@ -763,26 +765,26 @@
         },
         {
             "name": "amphp/process",
-            "version": "v0.3.3",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/process.git",
-                "reference": "b795d20a7f6d5a0637128a02be613f520f1705fc"
+                "reference": "90f3f31cbd0eee7fa5ae03ce588b1fc8f122997c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/process/zipball/b795d20a7f6d5a0637128a02be613f520f1705fc",
-                "reference": "b795d20a7f6d5a0637128a02be613f520f1705fc",
+                "url": "https://api.github.com/repos/amphp/process/zipball/90f3f31cbd0eee7fa5ae03ce588b1fc8f122997c",
+                "reference": "90f3f31cbd0eee7fa5ae03ce588b1fc8f122997c",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2",
-                "amphp/byte-stream": "^1",
+                "amphp/byte-stream": "^1.4",
                 "php": ">=7"
             },
             "require-dev": {
+                "amphp/php-cs-fixer-config": "dev-master",
                 "amphp/phpunit-util": "^1",
-                "friendsofphp/php-cs-fixer": "^2.3",
                 "phpunit/phpunit": "^6"
             },
             "type": "library",
@@ -814,20 +816,20 @@
             ],
             "description": "Asynchronous process manager.",
             "homepage": "https://github.com/amphp/process",
-            "time": "2018-04-08T18:55:42+00:00"
+            "time": "2018-11-09T00:02:00+00:00"
         },
         {
             "name": "amphp/socket",
-            "version": "v0.10.9",
+            "version": "v0.10.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/socket.git",
-                "reference": "6e9686b62b87c2cad235139a44be5121fe34edbb"
+                "reference": "2cb9d0ef823cfd1de4cfbd0e680c58841367f727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/socket/zipball/6e9686b62b87c2cad235139a44be5121fe34edbb",
-                "reference": "6e9686b62b87c2cad235139a44be5121fe34edbb",
+                "url": "https://api.github.com/repos/amphp/socket/zipball/2cb9d0ef823cfd1de4cfbd0e680c58841367f727",
+                "reference": "2cb9d0ef823cfd1de4cfbd0e680c58841367f727",
                 "shasum": ""
             },
             "require": {
@@ -881,7 +883,7 @@
                 "tcp",
                 "tls"
             ],
-            "time": "2018-05-01T21:14:10+00:00"
+            "time": "2018-10-17T16:53:02+00:00"
         },
         {
             "name": "amphp/sync",
@@ -985,24 +987,25 @@
         },
         {
             "name": "amphp/windows-registry",
-            "version": "v0.3.1",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/windows-registry.git",
-                "reference": "46ba1463dfffc8081b4b483fac05d3f51ecb1d87"
+                "reference": "834af7a30ad7c006b0326ccd2686ddc6e6943366"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/windows-registry/zipball/46ba1463dfffc8081b4b483fac05d3f51ecb1d87",
-                "reference": "46ba1463dfffc8081b4b483fac05d3f51ecb1d87",
+                "url": "https://api.github.com/repos/amphp/windows-registry/zipball/834af7a30ad7c006b0326ccd2686ddc6e6943366",
+                "reference": "834af7a30ad7c006b0326ccd2686ddc6e6943366",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2",
-                "amphp/process": "^0.2 || ^0.3"
+                "amphp/byte-stream": "^1.4",
+                "amphp/process": "^1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.3"
+                "amphp/php-cs-fixer-config": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -1021,7 +1024,7 @@
                 }
             ],
             "description": "Windows Registry Reader.",
-            "time": "2017-12-11T08:35:51+00:00"
+            "time": "2018-10-24T03:34:54+00:00"
         },
         {
             "name": "cash/lrucache",
@@ -1167,16 +1170,16 @@
         },
         {
             "name": "league/uri-interfaces",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "b5063ffb8b129923c8988f1d4061fdeea53b47b9"
+                "reference": "081760c53a4ce76c9935a755a21353610f5495f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/b5063ffb8b129923c8988f1d4061fdeea53b47b9",
-                "reference": "b5063ffb8b129923c8988f1d4061fdeea53b47b9",
+                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/081760c53a4ce76c9935a755a21353610f5495f6",
+                "reference": "081760c53a4ce76c9935a755a21353610f5495f6",
                 "shasum": ""
             },
             "require": {
@@ -1215,20 +1218,20 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-05-22T12:10:22+00:00"
+            "time": "2018-11-05T14:00:06+00:00"
         },
         {
             "name": "league/uri-parser",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-parser.git",
-                "reference": "8beb28540744a5ad728aee7060100002f9196f46"
+                "reference": "671548427e4c932352d9b9279fdfa345bf63fa00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-parser/zipball/8beb28540744a5ad728aee7060100002f9196f46",
-                "reference": "8beb28540744a5ad728aee7060100002f9196f46",
+                "url": "https://api.github.com/repos/thephpleague/uri-parser/zipball/671548427e4c932352d9b9279fdfa345bf63fa00",
+                "reference": "671548427e4c932352d9b9279fdfa345bf63fa00",
                 "shasum": ""
             },
             "require": {
@@ -1280,25 +1283,25 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-03-13T21:13:33+00:00"
+            "time": "2018-11-22T07:55:51+00:00"
         },
         {
             "name": "league/uri-schemes",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-schemes.git",
-                "reference": "c26aedac0f60d1ce915aa309e1d08a4b09c7d708"
+                "reference": "f821a444785724bcc9bc244b1173b9d6ca4d71e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-schemes/zipball/c26aedac0f60d1ce915aa309e1d08a4b09c7d708",
-                "reference": "c26aedac0f60d1ce915aa309e1d08a4b09c7d708",
+                "url": "https://api.github.com/repos/thephpleague/uri-schemes/zipball/f821a444785724bcc9bc244b1173b9d6ca4d71e6",
+                "reference": "f821a444785724bcc9bc244b1173b9d6ca4d71e6",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
-                "league/uri-interfaces": "^1.0",
+                "league/uri-interfaces": "^1.1",
                 "league/uri-parser": "^1.4.0",
                 "php": ">=7.0.13",
                 "psr/http-message": "^1.0"
@@ -1317,7 +1320,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
@@ -1355,20 +1358,20 @@
                 "ws",
                 "wss"
             ],
-            "time": "2018-03-14T08:33:20+00:00"
+            "time": "2018-11-26T08:09:30+00:00"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.23.0",
+            "version": "1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "fd8c787753b3a2ad11bc60c063cff1358a32a3b4"
+                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
-                "reference": "fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
                 "shasum": ""
             },
             "require": {
@@ -1433,7 +1436,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19T01:22:40+00:00"
+            "time": "2018-11-05T09:00:11+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1487,16 +1490,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
                 "shasum": ""
             },
             "require": {
@@ -1530,7 +1533,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "seld/cli-prompt",
