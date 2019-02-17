@@ -5,7 +5,7 @@
 #
 
 apt-get update \
-&& apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev -y \
+&& apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev zip unzip -y \
 && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 && apt-get install nodejs -y \
 && git clone https://github.com/torinaki/wrk.git && cd wrk && git checkout lua-plot-report \
@@ -24,7 +24,6 @@ apt-get update \
 && docker-php-ext-enable intl \
 && docker-php-ext-install sockets \
 && docker-php-source extract \
-&& pecl channel-update pecl.php.net \
 && git clone https://bitbucket.org/osmanov/pecl-ev.git && cd ./pecl-ev \
 && git checkout 1.0.5 \
 && phpize && ./configure && make && make install && cd .. \
