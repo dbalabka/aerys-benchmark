@@ -17,7 +17,10 @@ matrix:
                 - DOCKER_PHP_VERSION="php72"
         -
             env:
-                - DOCKER_PHP_VERSION="php72jit"
+                - DOCKER_PHP_VERSION="php73"
+        -
+            env:
+                - DOCKER_PHP_VERSION="php8jit"
 
 before_install:
     - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -

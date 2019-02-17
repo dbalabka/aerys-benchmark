@@ -25,7 +25,18 @@ apt-get update \
 && docker-php-ext-install sockets \
 && docker-php-source extract \
 && pecl channel-update pecl.php.net \
-&& printf "\n\n\n\n\n\n\n\n\n\n\n\n\n\n" | pecl install ev-1.0.4 event-2.3.0 swoole-4.2.1 \
+&& git clone https://bitbucket.org/osmanov/pecl-ev.git && cd ./pecl-ev \
+&& git checkout 1.0.5 \
+&& phpize && ./configure && make && make install && cd .. \
+&& rm -rf ./pecl-ev \
+&& git clone https://bitbucket.org/osmanov/pecl-event.git && cd ./pecl-event \
+&& git checkout 2.4.2 \
+&& phpize && ./configure && make && make install && cd .. \
+&& rm -rf ./pecl-event \
+&& git clone https://github.com/swoole/swoole-src.git && cd ./swoole-src \
+&& git checkout v4.2.13 \
+&& phpize && ./configure && make && make install && cd .. \
+&& rm -rf ./swoole-src \
 && git clone https://github.com/bwoebi/php-uv.git && cd ./php-uv \
 && phpize && ./configure && make && make install && cd .. && rm -rf ./php-uv \
 && docker-php-source delete \
