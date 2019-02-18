@@ -1,5 +1,5 @@
 #
-# PHP 7.2.* with JIT compilation support(Dynasm)
+# PHP 8-preview with JIT compilation support(Dynasm)
 #
 
 FROM dmitrybalabka/php-jit:latest

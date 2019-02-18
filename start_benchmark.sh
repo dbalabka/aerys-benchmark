@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Exit on any error
+set -e
+
 PHP_COMMAND="php -n"
 NODEJS_COMMAND='node'
 
@@ -44,18 +47,24 @@ function start_benchmark {
     wrk -t1 -c100 -d30s --latency ${URL} || { printf "${WARNING}Failed to start benchmark!${END}\n"; exit 1; }
 
     printf "\n\n${INFO}Stoping server...${END}\n"
-    killall -9 php node
+    killall -9 php node || echo ""
     sleep 2
 }
+
 function checkPhpConfiguration {
     printf "\n${INFO}Check PHP configuration: ${END}"
     eval "${PHP_COMMAND} -c ./php/default.ini -i | grep 'zend.assertions => -1 => -1' 1>/dev/null" || { printf "${WARNING}Zend assertion isn't disabled!${END}\n"; exit 1; }
     eval "${PHP_COMMAND} -c ./php/default-opcache.ini -i | grep 'opcache.enable => On => On' 1>/dev/null" || { printf "${WARNING}OpCache isn't loaded!${END}\n"; exit 1; }
-    eval "${PHP_COMMAND} -c ./php/default-opcache-ev.ini -i | grep  '^ev$' 1>/dev/null" || { printf "${WARNING}EV isn't loaded!${END}\n"; exit 1; }
-    eval "${PHP_COMMAND} -c ./php/default-opcache-event.ini -i | grep  '^event$' 1>/dev/null" || { printf "${WARNING}Libevent isn't enabled!${END}\n"; exit 1; }
+    if php -v | egrep -q "^PHP 7.(1|2|3)"; then
+        eval "${PHP_COMMAND} -c ./php/default-opcache-ev.ini -i | grep  '^ev$' 1>/dev/null" || { printf "${WARNING}EV isn't loaded!${END}\n"; exit 1; }
+        eval "${PHP_COMMAND} -c ./php/default-opcache-event.ini -i | grep  '^event$' 1>/dev/null" || { printf "${WARNING}Libevent isn't enabled!${END}\n"; exit 1; }
+    else
+        echo "Skip Ev and Event check for current version of PHP"
+    fi
     eval "${PHP_COMMAND} -c ./php/default-opcache-uv.ini -i | grep  '^uv$' 1>/dev/null" || { printf "${WARNING}Libuv isn't enabled!${END}\n"; exit 1; }
     printf "OK\n"
 }
+
 printf "${INFO}PHP version:${END}\n"
 eval "${PHP_COMMAND} -c ./php/default.ini -v"
 
@@ -80,9 +89,12 @@ start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} tiny (keep-alive + 
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 # TODO: Aerys doesn't work with EV extension on PHP 7.3
-php -v | egrep -q "^PHP 7.(1|2)" \
-&& start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
-start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+if php -v | egrep -q "^PHP 7.(1|2|3)"; then
+    start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + ev)" "${PHP_COMMAND} -c ./php/default-opcache-ev.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+    start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + event)" "${PHP_COMMAND} -c ./php/default-opcache-event.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
+else
+    echo "Skip Ev and Event benchmark for current version of PHP"
+fi
 start_benchmark "Benchmarking Aerys ${AERYS_CURRENT_VERSION} (keep-alive + OPCache + uv)" "${PHP_COMMAND} -c ./php/default-opcache-uv.ini ${AERYS_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 
 # Benchmark swoole
