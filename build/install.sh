@@ -61,7 +61,7 @@ if php -v | egrep -q "^PHP 7.(1|2|3)"; then
     compile_php_extension_from_source "https://bitbucket.org/osmanov/pecl-ev.git" "pecl-ev" "1.0.5"
     compile_php_extension_from_source "https://bitbucket.org/osmanov/pecl-event.git" "pecl-event" "2.4.2"
 else
-    echo "Skip EV installation"
+    echo "Skip Ev and Event installation for current version of PHP"
 fi
 
 compile_php_extension_from_source "https://github.com/swoole/swoole-src.git" "swoole-src" "v4.2.13"
