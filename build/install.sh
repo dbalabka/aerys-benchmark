@@ -57,14 +57,14 @@ docker-php-ext-enable intl
 docker-php-ext-install sockets
 docker-php-source extract
 
-if php -v | egrep -q "^PHP 7"; then
+if php -v | egrep -q "^PHP 7.(1|2|3)"; then
     compile_php_extension_from_source "https://bitbucket.org/osmanov/pecl-ev.git" "pecl-ev" "1.0.5"
     compile_php_extension_from_source "https://bitbucket.org/osmanov/pecl-event.git" "pecl-event" "2.4.2"
-    compile_php_extension_from_source "https://github.com/swoole/swoole-src.git" "swoole-src" "v4.2.13"
 else
-    echo "Skip EV and Event installation"
+    echo "Skip EV installation"
 fi
 
+compile_php_extension_from_source "https://github.com/swoole/swoole-src.git" "swoole-src" "v4.2.13"
 compile_php_extension_from_source "https://github.com/bwoebi/php-uv.git" "php-uv" "master"
 
 docker-php-source delete
