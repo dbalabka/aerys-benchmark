@@ -1,8 +1,8 @@
 #
-# PHP 8-preview with JIT compilation support(Dynasm)
+# PHP 7.4 with JIT compilation support(Dynasm)
 #
 
-FROM dmitrybalabka/php-jit:latest
+FROM php:7.4-cli
 WORKDIR /app
 ADD . /app
 # Settings for network better performance
