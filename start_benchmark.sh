@@ -13,7 +13,7 @@ AERYS1_WO_KEEP_ALIVE_COMMAND="./aerys/v0.5.0/vendor/bin/aerys -w 1 -c ./aerys/v0
 #AERYS_COMMAND="./aerys2/vendor/bin/aerys -w 1 -c ./aerys2/server.php --worker-args=\"-n\""
 AERYS_COMMAND="./aerys/version/server-tiny.php"
 AERYS_TINY_COMMAND="./aerys/version/server-tiny.php"
-AERYS_CURRENT_VERSION="v0.8"
+AERYS_CURRENT_VERSION="v1.x"
 
 SWOOLE_COMMAND="./swoole/server.php"
 
