@@ -5,6 +5,7 @@ use Amp\Http\Server\Server;
 use Amp\Http\Server\Request;
 use Amp\Http\Server\Response;
 use Amp\Http\Status;
+use Amp\Loop;
 use Amp\Socket;
 use Psr\Log\NullLogger;
 use Amp\Http\Server\Options;
@@ -48,13 +49,13 @@ $server = new Server(
     $options
 );
 
-\Amp\Loop::run(function () use ($server) {
+Loop::run(function () use ($server) {
     yield $server->start();
 
     // Stop the server gracefully when SIGINT is received.
     // This is technically optional, but it is best to call Server::stop().
-    Amp\Loop::onSignal(\SIGINT, function (string $watcherId) use ($server) {
-        Amp\Loop::cancel($watcherId);
+    Loop::onSignal(\SIGINT, function (string $watcherId) use ($server) {
+        Loop::cancel($watcherId);
         yield $server->stop();
     });
 });
