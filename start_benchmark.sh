@@ -11,7 +11,7 @@ AERYS_COMMAND="./aerys/version/vendor/bin/aerys -w 1 -c ./aerys/version/server.p
 AERYS_WO_KEEP_ALIVE_COMMAND="./aerys/version/vendor/bin/aerys -w 1 -c ./aerys/version/server-wo-keep-alive.php --worker-args=\"-n\""
 AMP_HTTP_SERVER_TINY_COMMAND="./aerys/version/server-tiny.php"
 AMP_HTTP_SERVER_SUPER_TINY_COMMAND="./aerys/version/server-super-tiny.php"
-AERYS_CURRENT_VERSION="v1.x"
+AERYS_CURRENT_VERSION="v2.x"
 
 SWOOLE_COMMAND="./swoole/server.php"
 
@@ -88,6 +88,11 @@ start_benchmark "Benchmarking Amp Server v0.8 tiny (keep-alive + OPCache)" "${PH
 start_benchmark "Benchmarking Amp Server v0.8 super tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AMP_HTTP_SERVER_SUPER_TINY_COMMAND//version/v0.8}"
 php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
 && start_benchmark "Benchmarking Amp Server v0.8 tiny (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AMP_HTTP_SERVER_TINY_COMMAND//version/v0.8}"
+
+start_benchmark "Benchmarking Amp Server v1.x tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AMP_HTTP_SERVER_TINY_COMMAND//version/v1.x}"
+start_benchmark "Benchmarking Amp Server v1.x super tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AMP_HTTP_SERVER_SUPER_TINY_COMMAND//version/v1.x}"
+php -n -c ./php/default-opcache.ini -i | grep "opcache.jit" 1>/dev/null \
+&& start_benchmark "Benchmarking Amp Server v1.x tiny (keep-alive + OPCache + w/o JIT)" "${PHP_COMMAND} -c ./php/default-opcache-nojit.ini ${AMP_HTTP_SERVER_TINY_COMMAND//version/v1.x}"
 
 start_benchmark "Benchmarking Amp Server ${AERYS_CURRENT_VERSION} tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AMP_HTTP_SERVER_TINY_COMMAND//version/${AERYS_CURRENT_VERSION}}"
 start_benchmark "Benchmarking Amp Server ${AERYS_CURRENT_VERSION} super tiny (keep-alive + OPCache)" "${PHP_COMMAND} -c ./php/default-opcache.ini ${AMP_HTTP_SERVER_SUPER_TINY_COMMAND//version/${AERYS_CURRENT_VERSION}}"
