@@ -17,7 +17,7 @@ $options = (new Options())
     // help avoid connection errors during benchmark
     ->withConnectionsPerIpLimit(100)
     // to emulate NodeJS behavior
-    ->withConnectionTimeout(10000)
+    ->withHttp1Timeout(10000)
     ->withoutCompression()
     ->withoutHttp2Upgrade()
     // TODO: options do not support this param?
@@ -25,7 +25,7 @@ $options = (new Options())
 ;
 
 $sockets = [
-    Socket\listen("0.0.0.0:8080"),
+    Socket\Server::listen("0.0.0.0:8080"),
 ];
 $server = new Server(
     $sockets,

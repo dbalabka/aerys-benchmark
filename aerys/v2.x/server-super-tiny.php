@@ -15,12 +15,13 @@ require __DIR__ . '/vendor/autoload.php';
 // You might notice that your browser opens several connections instead of just one, even when only making one request.
 
 use Amp\Loop;
-use Amp\Socket\ServerSocket;
+use Amp\Socket\ResourceSocket;
+use Amp\Socket\Server;
 use function Amp\asyncCoroutine;
 
 Loop::run(function () {
     $requestCount  = 0;
-    $clientHandler = asyncCoroutine(function (ServerSocket $socket) use (&$requestCount) {
+    $clientHandler = asyncCoroutine(function (ResourceSocket $socket) use (&$requestCount) {
         list($ip, $port) = explode(":", $socket->getRemoteAddress());
 
         $buffer = '';
@@ -37,7 +38,7 @@ Loop::run(function () {
         }
     });
 
-    $server = Amp\Socket\listen("0.0.0.0:8080");
+    $server = Server::listen("0.0.0.0:8080");
 
     echo "Listening for new connections on " . $server->getAddress() . " ..." . PHP_EOL;
 
