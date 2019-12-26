@@ -11,12 +11,6 @@ matrix:
     include:
         -
             env:
-                - DOCKER_PHP_VERSION="php71"
-        -
-            env:
-                - DOCKER_PHP_VERSION="php72"
-        -
-            env:
                 - DOCKER_PHP_VERSION="php73"
         -
             env:
