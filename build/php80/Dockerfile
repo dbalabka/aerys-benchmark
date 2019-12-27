@@ -2,7 +2,7 @@
 # PHP 8-preview with JIT compilation support(Dynasm)
 #
 
-FROM phpdaily/php:8.0-dev
+FROM phpdaily/php:8.0.0-dev-cli-buster
 WORKDIR /app
 ADD . /app
 # Settings for network better performance
