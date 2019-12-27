@@ -22,14 +22,16 @@ use function Amp\asyncCoroutine;
 Loop::run(function () {
     $requestCount  = 0;
     $clientHandler = asyncCoroutine(function (ResourceSocket $socket) use (&$requestCount) {
-        list($ip, $port) = explode(":", $socket->getRemoteAddress());
+        $address = $socket->getRemoteAddress();
+        $ip = $address->getHost();
+        $port = $address->getPort();
 
         $buffer = '';
         while (($chunk = yield $socket->read()) !== null) {
             $buffer .= $chunk;
             if (\substr($buffer, -4, 4) === "\r\n\r\n") {
-                $date       = \gmdate("D, d M Y H:i:s", \time()) . " GMT";
-                $body       = "Hello world!";
+                $date       = \gmdate('D, d M Y H:i:s', \time()) . " GMT";
+                $body       = 'Hello world!';
                 $bodyLength = \strlen($body);
                 $requestCount++;
                 echo $requestCount;
@@ -38,9 +40,9 @@ Loop::run(function () {
         }
     });
 
-    $server = Server::listen("0.0.0.0:8080");
+    $server = Server::listen('0.0.0.0:8080');
 
-    echo "Listening for new connections on " . $server->getAddress() . " ..." . PHP_EOL;
+    echo 'Listening for new connections on ' . $server->getAddress() . " ..." . PHP_EOL;
 
     while ($socket = yield $server->accept()) {
         $clientHandler($socket);

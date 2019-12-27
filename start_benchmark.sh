@@ -36,7 +36,7 @@ function start_benchmark {
     eval "${2} 1>/dev/null &"
     SERVER_PID=$!
 
-    sleep 2
+    sleep 5
 
     printf "\n\n${INFO}Response example:${END}\n"
     curl -I $URL || { printf "${WARNING}Failed to connect to server!${END}\n"; exit 1; }
