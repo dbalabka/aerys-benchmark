@@ -37,7 +37,7 @@ function compile_lib_from_source() {
 }
 
 apt-get update
-apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev zip unzip -y
+apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev zip unzip lsof -y
 curl -sL https://deb.nodesource.com/setup_8.x | bash -
 apt-get install nodejs -y
 
