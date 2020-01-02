@@ -29,7 +29,7 @@ $sockets = [
 ];
 $server = new Server(
     $sockets,
-    new CallableRequestHandler(function (Request $request) {
+    new CallableRequestHandler(static function (Request $request) {
         if ($request->getUri()) {
             $data = 'Hello world!';
             $status = Status::OK;
@@ -50,7 +50,7 @@ $server = new Server(
     $options
 );
 
-Loop::run(function () use ($server) {
+Loop::run(static function () use ($server) {
     yield $server->start();
 
     // Stop the server gracefully when SIGINT is received.

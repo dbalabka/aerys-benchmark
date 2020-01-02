@@ -19,7 +19,7 @@ use Amp\Socket\ResourceSocket;
 use Amp\Socket\Server;
 use function Amp\asyncCoroutine;
 
-Loop::run(function () {
+Loop::run(static function () {
     $requestCount  = 0;
     $clientHandler = asyncCoroutine(function (ResourceSocket $socket) use (&$requestCount) {
         $address = $socket->getRemoteAddress();
@@ -30,7 +30,7 @@ Loop::run(function () {
         while (($chunk = yield $socket->read()) !== null) {
             $buffer .= $chunk;
             if (\substr($buffer, -4, 4) === "\r\n\r\n") {
-                $date       = \gmdate('D, d M Y H:i:s', \time()) . " GMT";
+                $date       = \gmdate('D, d M Y H:i:s', \time()) . ' GMT';
                 $body       = 'Hello world!';
                 $bodyLength = \strlen($body);
                 $requestCount++;
@@ -46,8 +46,8 @@ Loop::run(function () {
 
     while ($socket = yield $server->accept()) {
         $clientHandler($socket);
-        if ($requestCount > 4) {
-            exit;
-        }
+//        if ($requestCount > 4) {
+//            exit;
+//        }
     }
 });

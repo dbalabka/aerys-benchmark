@@ -21,7 +21,8 @@ REACTPHP_COMMAND="./react-php/server.php"
 # NodeJS server script
 NODEJS_SERVER_COMMAND="./nodejs/server.js"
 
-URL="http://localhost:8080/"
+PORT=8080
+URL="http://localhost:${PORT}/"
 
 WARNING='\033[41m'
 SUCCESS='\033[42m'
@@ -37,6 +38,7 @@ function start_benchmark {
     SERVER_PID=$!
 
     sleep 5
+    lsof -i ":${PORT}"
 
     printf "\n\n${INFO}Response example:${END}\n"
     curl -I $URL || { printf "${WARNING}Failed to connect to server!${END}\n"; exit 1; }
@@ -47,6 +49,7 @@ function start_benchmark {
     printf "\n\n${INFO}Stoping server...${END}\n"
     killall -9 php node || echo ""
     sleep 2
+    lsof -i ":${PORT}"
 }
 
 function checkPhpConfiguration {
