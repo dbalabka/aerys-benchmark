@@ -49,7 +49,7 @@ function start_benchmark {
     printf "\n\n${INFO}Stoping server...${END}\n"
     killall -9 php node || echo ""
     sleep 2
-    lsof -i ":${PORT}"
+    lsof -i ":${PORT}" || echo "Port ${PORT} is free"
 }
 
 function checkPhpConfiguration {
