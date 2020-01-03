@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Amp\Http\Server\RequestHandler\CallableRequestHandler;
 use Amp\Http\Server\Server;
@@ -54,7 +55,7 @@ Loop::run(static function () use ($server) {
 
     // Stop the server gracefully when SIGINT is received.
     // This is technically optional, but it is best to call Server::stop().
-    Loop::onSignal(\SIGINT, function (string $watcherId) use ($server) {
+    Loop::onSignal(SIGINT, function (string $watcherId) use ($server) {
         Loop::cancel($watcherId);
         yield $server->stop();
     });

@@ -37,7 +37,7 @@ function compile_lib_from_source() {
 }
 
 apt-get update
-apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev zip unzip -y
+apt-get install build-essential libssl-dev git libtool m4 automake psmisc gnupg libicu-dev zlib1g-dev zip unzip lsof -y
 curl -sL https://deb.nodesource.com/setup_8.x | bash -
 apt-get install nodejs -y
 
@@ -64,8 +64,8 @@ else
     echo "Skip Ev and Event installation for current version of PHP"
 fi
 
-compile_php_extension_from_source "https://github.com/swoole/swoole-src.git" "swoole-src" "v4.2.13"
-compile_php_extension_from_source "https://github.com/bwoebi/php-uv.git" "php-uv" "master"
+compile_php_extension_from_source "https://github.com/swoole/swoole-src.git" "swoole-src" "v4.4.13"
+compile_php_extension_from_source "https://github.com/bwoebi/php-uv.git" "php-uv" "4b69d0fa2e4446bfa9343172227e8351da421dff"
 
 docker-php-source delete
 sh ./build/install-local.sh

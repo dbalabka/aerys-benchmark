@@ -1,8 +1,8 @@
 #
-# Latest PHP 7.1.*
+# PHP 7.4 with JIT compilation support(Dynasm)
 #
 
-FROM php:7.1-cli
+FROM php:7.4-cli
 WORKDIR /app
 ADD . /app
 # Settings for network better performance

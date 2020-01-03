@@ -1,6 +1,6 @@
 {
     "require": {
-        "amphp/http-server": "^0.8.3"
+        "amphp/http-server": "v2.0.0-rc3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
